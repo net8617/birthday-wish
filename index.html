@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday 🎉</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+    font-family:'Poppins',sans-serif;
+    overflow:hidden;
+    color:white;
+}
+
+/* ===== Birthday Gradient Background ===== */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:linear-gradient(180deg,#4b001f,#8b0037,#ffb347);
+    z-index:-2;
+}
+
+/* Floating Confetti Squares */
+.square{
+    position:fixed;
+    width:12px;
+    height:12px;
+    animation:float 10s linear infinite;
+}
+@keyframes float{
+    from{transform:translateY(110vh) rotate(0deg);}
+    to{transform:translateY(-10vh) rotate(360deg);}
+}
+
+/* COMMON */
+.page{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+.hidden{display:none;}
+
+/* BOX */
+.box{
+    background:rgba(0,0,0,0.55);
+    padding:25px 30px;
+    border-radius:20px;
+    box-shadow:0 0 25px rgba(255,255,255,0.25);
+    max-width:90%;
+}
+
+/* GLOW TEXT */
+.glow{
+    text-shadow:0 0 10px #ffd700,0 0 20px #ffae00;
+}
+
+/* BUTTON */
+.btn{
+    border:2px solid #fff;
+    padding:15px 35px;
+    border-radius:40px;
+    font-size:18px;
+    margin-top:20px;
+    cursor:pointer;
+}
+
+/* ENVELOPE */
+.envelope{
+    width:220px;
+    height:130px;
+    background:#ffb3c6;
+    position:relative;
+    cursor:pointer;
+}
+.envelope:before{
+    content:"";
+    position:absolute;
+    width:0;height:0;
+    border-left:110px solid transparent;
+    border-right:110px solid transparent;
+    border-bottom:65px solid #ff6f91;
+    top:0;left:0;
+}
+
+/* LETTER */
+.letter{
+    background:white;
+    color:#d6336c;
+    padding:25px;
+    border-radius:15px;
+    font-family:'Pacifico',cursive;
+    font-size:26px;
+    animation:slideUp 1s ease;
+    cursor:pointer;
+}
+@keyframes slideUp{
+    from{transform:translateY(120px);opacity:0;}
+    to{transform:translateY(0);opacity:1;}
+}
+
+/* COUNT */
+#count{
+    font-size:80px;
+    font-weight:bold;
+}
+
+/* FINAL */
+#final img{
+    width:160px;
+    height:160px;
+    border-radius:50%;
+    border:4px solid gold;
+    box-shadow:0 0 25px gold;
+}
+#name{
+    font-family:'Pacifico',cursive;
+    font-size:32px;
+    margin:10px 0;
+}
+#typing{
+    font-size:18px;
+    margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 AUTO MUSIC (Muted autoplay → unmute on first click) -->
+<audio id="bgMusic" autoplay loop muted>
+  <source src="birthday-wish-music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- PAGE 1 -->
+<div id="p1" class="page">
+    <div class="box">
+        <h2 class="glow">THIS IS FOR YOU BIJOY 🥰❤️</h2>
+        <div class="btn glow" onclick="openEnvelope()">
+            CLICK DEO BIJOY BHAI 🎂👉
+        </div>
+    </div>
+</div>
+
+<!-- PAGE 2 -->
+<div id="p2" class="page hidden">
+    <div class="envelope" onclick="openLetter()"></div>
+    <div class="box glow" style="margin-top:15px;">
+        DEAR BIJOY IT’S FOR YOU 💌
+    </div>
+</div>
+
+<!-- LETTER PAGE -->
+<div id="pLetter" class="page hidden">
+    <div class="letter box" onclick="startCount()">
+        🎉 HAPPY BIRTHDAY BIJOY 🎉
+    </div>
+</div>
+
+<!-- COUNT PAGE -->
+<div id="p3" class="page hidden">
+    <div class="box">
+        <div id="count" class="glow">1</div>
+    </div>
+</div>
+
+<!-- FINAL PAGE -->
+<div id="final" class="page hidden">
+    <div class="box">
+        <div class="glow">Birthday Photo</div><br>
+        <img src="https://d.top4top.io/p_3648aal2d6.jpeg">
+        <div id="name" class="glow">🎂 Tarek Hossen 🎂</div>
+        <div id="typing"></div>
+    </div>
+</div>
+
+<script>
+/* Floating Confetti */
+for(let i=0;i<40;i++){
+    let s=document.createElement("div");
+    s.className="square";
+    s.style.left=Math.random()*100+"vw";
+    s.style.background=`hsl(${Math.random()*360},100%,60%)`;
+    s.style.animationDuration=(Math.random()*8+5)+"s";
+    document.body.appendChild(s);
+}
+
+/* Auto unmute music on first interaction */
+const music=document.getElementById("bgMusic");
+document.addEventListener("click",()=>{
+    if(music.muted){
+        music.muted=false;
+        music.volume=1.0;
+        music.play();
+    }
+},{once:true});
+
+/* Page Flow */
+function openEnvelope(){
+    p1.classList.add("hidden");
+    p2.classList.remove("hidden");
+}
+function openLetter(){
+    p2.classList.add("hidden");
+    pLetter.classList.remove("hidden");
+}
+function startCount(){
+    pLetter.classList.add("hidden");
+    p3.classList.remove("hidden");
+    let n=1;
+    let t=setInterval(()=>{
+        count.innerText=n;
+        if(n==3){
+            clearInterval(t);
+            setTimeout(showFinal,800);
+        }
+        n++;
+    },1000);
+}
+function showFinal(){
+    p3.classList.add("hidden");
+    final.classList.remove("hidden");
+    typeText();
+}
+
+/* Typing Caption */
+const text="শুভ জন্মদিন 🎉 তোমার জীবন হোক আনন্দ, সফলতা আর ভালোবাসায় ভরা ❤️";
+let i=0;
+function typeText(){
+    if(i<text.length){
+        typing.innerHTML+=text.charAt(i);
+        i++;
+        setTimeout(typeText,70);
+    }
+}
+</script>
+
+</body>
+</html>
