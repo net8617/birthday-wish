@@ -15,7 +15,7 @@ body{
     color:white;
 }
 
-/* ===== Birthday Gradiet Background ===== */
+/* ===== Birthday Gradient Background ===== */
 body::before{
     content:"";
     position:fixed;
@@ -133,7 +133,7 @@ body::before{
 
 <body>
 
-<!-- 🎵 AUTO MUSIC (Muted autoplay → unmute on first click) -->
+<!-- 🎵 AUTO MUSIC (mobile safe) -->
 <audio id="bgMusic" autoplay loop muted>
   <source src="birthday-wish-music.mp3" type="audio/mpeg">
 </audio>
@@ -191,15 +191,16 @@ for(let i=0;i<40;i++){
     document.body.appendChild(s);
 }
 
-/* Auto unmute music on first interaction */
+/* ===== MUSIC FIX (100% mobile compatible) ===== */
 const music=document.getElementById("bgMusic");
-document.addEventListener("click",()=>{
-    if(music.muted){
-        music.muted=false;
-        music.volume=1.0;
-        music.play();
-    }
-},{once:true});
+function enableMusic(){
+    music.muted=false;
+    music.volume=1.0;
+    music.play().catch(()=>{});
+}
+document.addEventListener("click",enableMusic,{once:true});
+document.addEventListener("touchstart",enableMusic,{once:true});
+document.addEventListener("scroll",enableMusic,{once:true});
 
 /* Page Flow */
 function openEnvelope(){
