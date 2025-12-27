@@ -15,7 +15,7 @@ body{
     color:white;
 }
 
-/* ===== Birthday Gradient Background ===== */
+/* Background */
 body::before{
     content:"";
     position:fixed;
@@ -24,7 +24,7 @@ body::before{
     z-index:-2;
 }
 
-/* Floating Confetti Squares */
+/* Confetti */
 .square{
     position:fixed;
     width:12px;
@@ -36,32 +36,32 @@ body::before{
     to{transform:translateY(-10vh) rotate(360deg);}
 }
 
-/* COMMON */
+/* Common */
 .page{
     height:100vh;
     display:flex;
-    flex-direction:column;
     justify-content:center;
     align-items:center;
+    flex-direction:column;
     text-align:center;
 }
 .hidden{display:none;}
 
-/* BOX */
+/* Box */
 .box{
-    background:rgba(0,0,0,0.55);
+    background:rgba(0,0,0,0.6);
     padding:25px 30px;
-    border-radius:20px;
-    box-shadow:0 0 25px rgba(255,255,255,0.25);
+    border-radius:22px;
+    box-shadow:0 0 30px rgba(255,255,255,0.25);
     max-width:90%;
 }
 
-/* GLOW TEXT */
+/* Glow */
 .glow{
     text-shadow:0 0 10px #ffd700,0 0 20px #ffae00;
 }
 
-/* BUTTON */
+/* Button */
 .btn{
     border:2px solid #fff;
     padding:15px 35px;
@@ -71,7 +71,7 @@ body::before{
     cursor:pointer;
 }
 
-/* ENVELOPE */
+/* Envelope */
 .envelope{
     width:220px;
     height:130px;
@@ -89,7 +89,7 @@ body::before{
     top:0;left:0;
 }
 
-/* LETTER */
+/* Letter */
 .letter{
     background:white;
     color:#d6336c;
@@ -105,156 +105,166 @@ body::before{
     to{transform:translateY(0);opacity:1;}
 }
 
-/* COUNT */
+/* Count */
 #count{
     font-size:80px;
     font-weight:bold;
 }
 
-/* FINAL */
+/* Final */
 #final img{
-    width:160px;
-    height:160px;
+    width:150px;
+    height:150px;
     border-radius:50%;
     border:4px solid gold;
     box-shadow:0 0 25px gold;
 }
 #name{
     font-family:'Pacifico',cursive;
-    font-size:32px;
+    font-size:34px;
     margin:10px 0;
 }
+
+/* Typing + Scroll */
+.scroll-box{
+    height:200px;
+    overflow-y:auto;
+    margin-top:15px;
+    padding-right:5px;
+}
 #typing{
-    font-size:18px;
-    margin-top:10px;
+    font-size:17px;
+    line-height:1.7;
+    white-space:pre-line;
 }
 </style>
 </head>
 
 <body>
 
-<!-- 🎵 AUTO MUSIC (mobile safe) -->
+<!-- Music -->
 <audio id="bgMusic" autoplay loop muted>
   <source src="birthday-wish-music.mp3" type="audio/mpeg">
 </audio>
 
-<!-- PAGE 1 -->
+<!-- Page 1 -->
 <div id="p1" class="page">
-    <div class="box">
-        <h2 class="glow">THIS IS FOR YOU  SABIHA NOOR 🥰❤️</h2>
-        <div class="btn glow" onclick="openEnvelope()">
-            CLICK DEO SABIHA NOOR 🎂👉
-        </div>
-    </div>
+  <div class="box">
+    <h2 class="glow">THIS IS FOR YOU 💖</h2>
+    <h3 class="glow">SABIHA NOOR 🥰</h3>
+    <div class="btn glow" onclick="openEnvelope()">CLICK DEO 🎂</div>
+  </div>
 </div>
 
-<!-- PAGE 2 -->
+<!-- Page 2 -->
 <div id="p2" class="page hidden">
-    <div class="envelope" onclick="openLetter()"></div>
-    <div class="box glow" style="margin-top:15px;">
-        DEAR SABIHA NOOR’S FOR YOU 💌
-    </div>
+  <div class="envelope" onclick="openLetter()"></div>
+  <div class="box glow" style="margin-top:15px;">DEAR SABIHA NOOR 💌</div>
 </div>
 
-<!-- LETTER PAGE -->
+<!-- Letter -->
 <div id="pLetter" class="page hidden">
-    <div class="letter box" onclick="startCount()">
-        🎉 HAPPY BIRTHDAY SABIHA NOOR 🎉
-    </div>
+  <div class="letter box" onclick="startCount()">🎉 HAPPY BIRTHDAY SABIHA NOOR 🎉</div>
 </div>
 
-<!-- COUNT PAGE -->
+<!-- Count -->
 <div id="p3" class="page hidden">
-    <div class="box">
-        <div id="count" class="glow">1</div>
-    </div>
+  <div class="box"><div id="count" class="glow">1</div></div>
 </div>
 
-<!-- FINAL PAGE -->
+<!-- Final -->
 <div id="final" class="page hidden">
-    <div class="box">
-        <div class="glow">Birthday Photo</div><br>
-        <img src="https://d.top4top.io/p_3648aal2d6.jpeg">
-        <div id="name" class="glow">🎂   SABIHA NOOR    🎂</div>
-        <div id="typing"></div>
+  <div class="box">
+    <img src="https://d.top4top.io/p_3648aal2d6.jpeg">
+    <div id="name" class="glow">SABIHA NOOR</div>
+
+    <div class="scroll-box" id="scrollBox">
+      <div id="typing"></div>
     </div>
+  </div>
+</div>
+
+<!-- Last Page -->
+<div id="last" class="page hidden">
+  <div class="box">
+    <h1 class="glow">😄</h1>
+    <h2 class="glow">টিট না দিলে<br>বিয়ে হবে না</h2>
+  </div>
 </div>
 
 <script>
-/* Floating Confetti */
-for(let i=0;i<40;i++){
-    let s=document.createElement("div");
-    s.className="square";
-    s.style.left=Math.random()*100+"vw";
-    s.style.background=`hsl(${Math.random()*360},100%,60%)`;
-    s.style.animationDuration=(Math.random()*8+5)+"s";
-    document.body.appendChild(s);
+/* Confetti */
+for(let i=0;i<35;i++){
+  let s=document.createElement("div");
+  s.className="square";
+  s.style.left=Math.random()*100+"vw";
+  s.style.background=`hsl(${Math.random()*360},100%,60%)`;
+  s.style.animationDuration=(Math.random()*8+5)+"s";
+  document.body.appendChild(s);
 }
 
-/* ===== MUSIC FIX (100% mobile compatible) ===== */
+/* Music enable */
 const music=document.getElementById("bgMusic");
 function enableMusic(){
-    music.muted=false;
-    music.volume=1.0;
-    music.play().catch(()=>{});
+  music.muted=false;
+  music.play().catch(()=>{});
 }
 document.addEventListener("click",enableMusic,{once:true});
 document.addEventListener("touchstart",enableMusic,{once:true});
-document.addEventListener("scroll",enableMusic,{once:true});
 
-/* Page Flow */
-function openEnvelope(){
-    p1.classList.add("hidden");
-    p2.classList.remove("hidden");
-}
-function openLetter(){
-    p2.classList.add("hidden");
-    pLetter.classList.remove("hidden");
-}
+/* Flow */
+function openEnvelope(){p1.classList.add("hidden");p2.classList.remove("hidden");}
+function openLetter(){p2.classList.add("hidden");pLetter.classList.remove("hidden");}
+
 function startCount(){
-    pLetter.classList.add("hidden");
-    p3.classList.remove("hidden");
-    let n=1;
-    let t=setInterval(()=>{
-        count.innerText=n;
-        if(n==3){
-            clearInterval(t);
-            setTimeout(showFinal,800);
-        }
-        n++;
-    },1000);
-}
-function showFinal(){
-    p3.classList.add("hidden");
-    final.classList.remove("hidden");
-    typeText();
+  pLetter.classList.add("hidden");
+  p3.classList.remove("hidden");
+  let n=1;
+  let t=setInterval(()=>{
+    count.innerText=n;
+    if(n==3){
+      clearInterval(t);
+      setTimeout(showFinal,800);
+    }
+    n++;
+  },1000);
 }
 
-/* Typing Caption */
-const text="🎉✨ শুভ জন্মদিন SABIHA NOOR ✨🎉
+function showFinal(){
+  p3.classList.add("hidden");
+  final.classList.remove("hidden");
+  startTyping();
+}
+
+/* Typing + Auto Scroll */
+const text = `🎉✨ শুভ জন্মদিন SABIHA NOOR ✨🎉
+
 এই বিশেষ দিনে দোয়া করি—
 তোমার জীবন হোক আনন্দে ভরা,
 প্রতিটা সকাল শুরু হোক নতুন আশা নিয়ে,
 আর প্রতিটা রাত শেষ হোক তৃপ্তির হাসিতে।
+
 জীবনের পথে যত বাধাই আসুক,
 তুমি যেন সাহস আর আত্মবিশ্বাস নিয়ে এগিয়ে যেতে পারো।
 সফলতা, শান্তি আর ভালোবাসা
 চিরদিন তোমার সঙ্গী হয়ে থাকুক।
-তোমার হাসিটাই হোক তোমার সবচেয়ে বড় শক্তি,
-আর তোমার স্বপ্নগুলো একদিন বাস্তবে রূপ নিক—এই কামনাই করি।
-জীবনের প্রতিটা মুহূর্ত হোক মূল্যবান ও অর্থপূর্ণ।
+
 🎂💖 আবারও শুভ জন্মদিন।
-সবসময় ভালো থেকো, সুখে থেকো।
-ইতি,
-তোমার
-Net Joddha 🌸✨";
+— Net Joddha 🌸✨`;
+
 let i=0;
-function typeText(){
-    if(i<text.length){
-        typing.innerHTML+=text.charAt(i);
-        i++;
-        setTimeout(typeText,70);
-    }
+function startTyping(){
+  if(i<text.length){
+    typing.innerHTML+=text.charAt(i);
+    scrollBox.scrollTop=scrollBox.scrollHeight;
+    i++;
+    setTimeout(startTyping,40);
+  }else{
+    setTimeout(()=>{
+      final.classList.add("hidden");
+      last.classList.remove("hidden");
+    },2000);
+  }
 }
 </script>
 
