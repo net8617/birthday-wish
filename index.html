@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* --- General Setup --- */
+        :root {
+            --primary: #ff00de;
+            --secondary: #00efff;
+            --glass: rgba(255, 255, 255, 0.15);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', 'Hind Siliguri', sans-serif; }
+        
+        body {
+            background: radial-gradient(circle at center, #000000 20%, #001f4d 100%);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- Background Animation --- */
+        .bg-animation {
+            position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: 0; pointer-events: none;
+        }
+        .particle {
+            position: absolute; bottom: -50px; background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%; animation: floatUp linear infinite;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-100vh); opacity: 0; }
+        }
+
+        /* --- Page Layout --- */
+        .page {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+        .page.active { display: flex; animation: fadeIn 0.8s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+        /* --- Countdown Animation --- */
+        #count-num {
+            font-size: 8rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-shadow: 0 0 40px var(--primary);
+            animation: zoomPulse 1s infinite;
+        }
+        @keyframes zoomPulse {
+            0% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); opacity: 0; }
+        }
+
+        /* --- Box Styles --- */
+        .box {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            margin: 15px 0;
+            width: 90%; 
+            max-width: 500px;
+            height: auto; 
+            min-height: 50px;
+            word-wrap: break-word;
+            display: inline-block;
+        }
+
+        .box-hidden { opacity: 0; transform: translateY(20px); transition: 0.5s; display: none; }
+        .box-visible { opacity: 1; transform: translateY(0); display: inline-block; animation: popUp 0.5s ease; }
+        @keyframes popUp { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        h1 { font-size: 1.8rem; color: var(--secondary); margin-bottom: 10px; }
+        
+        /* --- Button --- */
+        .btn {
+            background: linear-gradient(90deg, #ff0080, #ff8c00);
+            border: none; padding: 12px 30px;
+            color: white; font-size: 1.1rem; border-radius: 50px;
+            cursor: pointer; margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(255, 0, 128, 0.4);
+            transition: 0.3s;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+        /* --- Envelope Styles --- */
+        .envelope-wrapper { position: relative; width: 280px; height: 180px; margin: 50px auto; cursor: pointer; }
+        .envelope { position: relative; width: 100%; height: 100%; background: #ff3333; border-radius: 0 0 10px 10px; }
+        .flap { 
+            position: absolute; top: 0; left: 0; width: 0; height: 0; 
+            border-left: 140px solid transparent; border-right: 140px solid transparent; 
+            border-top: 100px solid #ff5555; transform-origin: top; transition: 0.8s; z-index: 5; 
+        }
+        .pocket { 
+            position: absolute; bottom: 0; left: 0; width: 0; height: 0; 
+            border-left: 140px solid #ff3333; border-right: 140px solid #ff3333; 
+            border-top: 90px solid transparent; border-bottom: 90px solid #cc0000; 
+            border-radius: 0 0 10px 10px; z-index: 4; 
+        }
+        .letter { 
+            position: absolute; bottom: 0; left: 10px; width: 260px; height: 160px; 
+            background: white; color: #333; padding: 15px; text-align: center; 
+            transition: 1s ease-in-out; z-index: 2; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; border-radius: 5px; 
+        }
+        .envelope-wrapper.open .flap { transform: rotateX(180deg); z-index: 1; }
+        .envelope-wrapper.open .letter { bottom: 120px; z-index: 6; }
+
+        /* --- Gallery Styles --- */
+        .gallery-slide {
+            display: none; 
+            animation: fadeInSlide 1s ease;
+        }
+        .gallery-slide.active-slide {
+            display: block;
+        }
+        @keyframes fadeInSlide { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+        .gallery-img {
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 4px solid white;
+            box-shadow: 0 0 25px rgba(0,239,255,0.6);
+            margin-top: 15px;
+        }
+        .caption-text {
+            color: #ff00de;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* --- Page 3 Elements --- */
+        .profile-img {
+            width: 160px; height: 160px; border-radius: 50%;
+            border: 4px solid var(--primary); box-shadow: 0 0 30px var(--primary);
+            object-fit: cover; margin-bottom: 20px;
+            animation: zoomInImg 1s ease;
+        }
+        @keyframes zoomInImg { from { transform: scale(0); } to { transform: scale(1); } }
+
+        .typing-text { font-size: 1.1rem; line-height: 1.6; color: #ffffff; font-weight: 500; }
+        .cursor { display: inline-block; width: 3px; height: 1.2em; background: var(--secondary); animation: blink 0.8s infinite; vertical-align: bottom; }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* --- Page 4 --- */
+        textarea { width: 100%; background: rgba(255,255,255,0.9); border-radius: 8px; padding: 10px; border: none; font-size: 1rem; }
+    </style>
+</head>
+<body>
+
+    <div class="bg-animation" id="particles"></div>
+    
+    <audio id="bg-music" loop>
+        <source src="" type="audio/mp3" id="audio-source">
+    </audio>
+
+    <div class="page active" id="page1">
+        <div class="box">
+            <h1>THIS IS FOR YOU <span class="dynamic-name"></span>-🥳❤️‍🩹🫵</h1>
+        </div>
+        <div class="box">
+            <button class="btn" onclick="startJourney()">
+                CLICK DEO <span class="dynamic-name"></span> VAI 🎂👈
+            </button>
+        </div>
+    </div>
+
+    <div class="page" id="page-countdown">
+        <div id="count-num">3</div>
+    </div>
+
+    <div class="page" id="page2">
+        <h2 style="margin-bottom: 20px;">চিঠিটা খুলে দেখো! 📩</h2>
+        <div class="envelope-wrapper" onclick="openEnvelope(this)">
+            <div class="envelope">
+                <div class="flap"></div>
+                <div class="pocket"></div>
+                <div class="letter">
+                    <h2 style="font-family: 'Dancing Script'; color: #d63031;">Happy Birthday<br><span class="dynamic-name"></span> ❤️</h2>
+                </div>
+            </div>
+        </div>
+        <p style="margin-top: 150px; opacity: 0.7;">(খামের ওপর ট্যাপ করো)</p>
+    </div>
+
+    <div class="page" id="page-gallery">
+        <div class="gallery-slide" id="slide1">
+            <div class="box">
+                <span class="caption-text" id="text-gallery-1"></span>
+            </div>
+            <img src="" class="gallery-img" id="img-gallery-1" alt="Memories 1">
+        </div>
+
+        <div class="gallery-slide" id="slide2">
+            <div class="box">
+                <span class="caption-text" id="text-gallery-2"></span>
+            </div>
+            <img src="" class="gallery-img" id="img-gallery-2" alt="Memories 2">
+        </div>
+    </div>
+
+    <div class="page" id="page3">
+        <img src="" alt="Profile" class="profile-img" id="img-profile">
+        
+        <div class="box box-hidden" id="title-box">
+            <span id="title-text" class="typing-text"></span>
+        </div>
+
+        <div class="box box-hidden" id="caption-box">
+            <span id="caption-text" class="typing-text"></span><span class="cursor"></span>
+        </div>
+    </div>
+
+    <div class="page" id="page4">
+        <div class="box">
+            <h2>Treat এর জন্য মেসেজ দিন! 🍔</h2>
+            <textarea id="msgInput" rows="4" placeholder="ভাই কিছু তো লিখেন..."></textarea>
+            <button class="btn" onclick="sendToTelegram()">Send Message 🚀</button>
+        </div>
+        <div style="margin-top: 30px; font-size: 0.8rem; color: #aaa;">Power By Netjoddha 🇧🇩</div>
+    </div>
+
+    <script>
+        // =================================================================
+        //                 👇👇 EDIT HERE (সব কিছু এখানে পরিবর্তন করুন) 👇👇
+        // =================================================================
+        
+        // ১. নাম (Name)
+        const name = "BIJOY"; 
+
+        // ২. মিউজিক ফাইল (Music File Name)
+        // আপনার গানের ফাইলটি এই ফোল্ডারেই রাখবেন এবং নাম দেবেন "song.mp3"
+        const musicFile = "song.mp3"; 
+
+        // ৩. ছবি (Images Links)
+        const profileImage = "https://cdn-icons-png.flaticon.com/512/4140/4140048.png"; 
+        const galleryImage1 = "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"; 
+        const galleryImage2 = "https://cdn-icons-png.flaticon.com/512/3135/3135768.png"; 
+
+        // ৪. গ্যালারি ক্যাপশন (Gallery Captions)
+        const galleryCaption1 = "তোমার হাসিমুখ! 😊";
+        const galleryCaption2 = "স্মৃতিময় মুহূর্তগুলো... 📸";
+
+        // ৫. উইশ মেসেজ (Main Wishes)
+        const titleMsg = "Happy Birthday Bijoy 🎉";
+        const captionMsg = "শুভ জন্মদিন প্রিয় ভাই! 🎂\n\nআজকের এই বিশেষ দিনে তোমার জন্য রইল অনেক অনেক ভালোবাসা। দোয়া করি তোমার আগামী দিনগুলো অনেক সুন্দর আর রঙিন হোক। সব স্বপ্ন সত্যি হোক।\n\nAlways Smile! 😊";
+
+        // ৬. টেলিগ্রাম তথ্য (Telegram Info)
+        const botToken = "8545704761:AAGpF-HdYFGPiwXuu9tz_r8xU_bk2FFClxo"; 
+        const chatId = "8286027092"; 
+
+        // =================================================================
+        // ⛔⛔ DO NOT EDIT BELOW THIS LINE (নিচে হাত দেওয়ার দরকার নেই) ⛔⛔
+        // =================================================================
+        
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll('.dynamic-name').forEach(el => el.innerText = name);
+            document.getElementById('img-profile').src = profileImage;
+            document.getElementById('img-gallery-1').src = galleryImage1;
+            document.getElementById('img-gallery-2').src = galleryImage2;
+            document.getElementById('text-gallery-1').innerText = galleryCaption1;
+            document.getElementById('text-gallery-2').innerText = galleryCaption2;
+            
+            // Set Music Source
+            document.getElementById('audio-source').src = musicFile;
+            document.getElementById('bg-music').load();
+        });
+
+        // Background Particles
+        const bg = document.getElementById('particles');
+        for(let i=0; i<30; i++){
+            let p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.width = p.style.height = (Math.random() * 15 + 5) + 'px';
+            p.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            bg.appendChild(p);
+        }
+
+        // 1. Start Journey & Play Music
+        function startJourney() {
+            // Play Music Here (User Interaction Trigger)
+            const audio = document.getElementById('bg-music');
+            audio.play().catch(error => {
+                console.log("Autoplay prevented by browser, waiting for next interaction.");
+            });
+
+            document.getElementById('page1').classList.remove('active');
+            document.getElementById('page-countdown').classList.add('active');
+            runCountdown();
+        }
+
+        // 2. Countdown
+        function runCountdown() {
+            let count = 3;
+            const el = document.getElementById('count-num');
+            el.innerText = count;
+            const timer = setInterval(() => {
+                count--;
+                if(count > 0) { el.innerText = count; } else {
+                    clearInterval(timer);
+                    document.getElementById('page-countdown').classList.remove('active');
+                    document.getElementById('page2').classList.add('active');
+                }
+            }, 1000);
+        }
+
+        // 3. Envelope
+        function openEnvelope(el) {
+            if(el.classList.contains('open')) return;
+            el.classList.add('open');
+            setTimeout(() => {
+                document.getElementById('page2').classList.remove('active');
+                document.getElementById('page-gallery').classList.add('active');
+                startGalleryShow(); 
+            }, 3000);
+        }
+
+        // 4. Gallery Logic
+        function startGalleryShow() {
+            document.getElementById('slide1').classList.add('active-slide');
+            setTimeout(() => {
+                document.getElementById('slide1').classList.remove('active-slide');
+                document.getElementById('slide2').classList.add('active-slide');
+            }, 4000);
+            setTimeout(() => {
+                document.getElementById('page-gallery').classList.remove('active');
+                document.getElementById('page3').classList.add('active');
+                startPage3Animation();
+            }, 8000);
+        }
+
+        // 5. Main Wish Typing
+        function startPage3Animation() {
+            const titleBox = document.getElementById('title-box');
+            titleBox.classList.remove('box-hidden');
+            titleBox.classList.add('box-visible');
+            typeText('title-text', titleMsg, 50, () => {
+                const captionBox = document.getElementById('caption-box');
+                captionBox.classList.remove('box-hidden');
+                captionBox.classList.add('box-visible');
+                typeText('caption-text', captionMsg, 40, () => {
+                    setTimeout(() => {
+                        document.getElementById('page3').classList.remove('active');
+                        document.getElementById('page4').classList.add('active');
+                    }, 4000); 
+                });
+            });
+        }
+
+        function typeText(elementId, text, speed, callback) {
+            const element = document.getElementById(elementId);
+            let i = 0;
+            element.innerHTML = "";
+            function type() {
+                if (i < text.length) {
+                    if (text.charAt(i) === '\n') { element.innerHTML += '<br>'; } 
+                    else { element.innerHTML += text.charAt(i); }
+                    i++; setTimeout(type, speed);
+                } else { if(callback) callback(); }
+            }
+            type();
+        }
+
+        // 6. Telegram
+        function sendToTelegram() {
+            const msg = document.getElementById("msgInput").value;
+            if(msg.trim() === "") { alert("কিছু লিখেন ভাই!"); return; }
+            const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent("Birthday Reply (" + name + "): " + msg)}`;
+            fetch(url).then(res => {
+                if(res.ok) { alert("Sent! ✅"); document.getElementById("msgInput").value = ""; }
+            });
+        }
+    </script>
+</body>
+</html>
