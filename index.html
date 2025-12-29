@@ -12,6 +12,14 @@
             --secondary: #00efff;
             --glass: rgba(255, 255, 255, 0.15);
         }
+        
+        /* Text Selection Disable (লেখা কপি করা যাবে না) */
+        body {
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10 and IE 11 */
+            user-select: none; /* Standard syntax */
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', 'Hind Siliguri', sans-serif; }
         
         body {
@@ -247,32 +255,41 @@
         //                 👇👇 EDIT HERE (সব কিছু এখানে পরিবর্তন করুন) 👇👇
         // =================================================================
         
-        // ১. নাম (Name)
         const name = "CSB CEO-BIJOY"; 
-
-        // ২. মিউজিক ফাইল (Music File Name)
-        // আপনার গানের ফাইলটি এই ফোল্ডারেই রাখবেন এবং নাম দেবেন "song.mp3"
         const musicFile = "song.mp3"; 
 
-        // ৩. ছবি (Images Links)
         const profileImage = "https://d.top4top.io/p_365078o2b0.jpg"; 
         const galleryImage1 = "https://i.top4top.io/p_3650n2bbj0.png"; 
-        const galleryImage2 = "https://cdn-icons-png.flaticon.com/512/3135/3135768.png"; 
+        const galleryImage2 = "https://k.top4top.io/p_3650xejs01.jpg"; 
 
-        // ৪. গ্যালারি ক্যাপশন (Gallery Captions)
         const galleryCaption1 = "তোমার হাসিমুখ! 😊";
         const galleryCaption2 = "স্মৃতিময় মুহূর্তগুলো... 📸";
 
-        // ৫. উইশ মেসেজ (Main Wishes)
         const titleMsg = "Happy Birthday CSB CEO - BIJOY VAI🎉";
         const captionMsg = "শুভ জন্মদিন প্রিয় ভাই! 🎂\n\nআজকের এই বিশেষ দিনে তোমার জন্য রইল অনেক অনেক ভালোবাসা। দোয়া করি তোমার আগামী দিনগুলো অনেক সুন্দর আর রঙিন হোক। সব স্বপ্ন সত্যি হোক।\n\nAlways Smile! 😊";
 
-        // ৬. টেলিগ্রাম তথ্য (Telegram Info)
         const botToken = "8545704761:AAGpF-HdYFGPiwXuu9tz_r8xU_bk2FFClxo"; 
         const chatId = "8286027092"; 
 
         // =================================================================
-        // ⛔⛔ DO NOT EDIT BELOW THIS LINE (নিচে হাত দেওয়ার দরকার নেই) ⛔⛔
+        //                 🚫🚫 SECURITY CODE (DO NOT EDIT) 🚫🚫
+        // =================================================================
+        
+        // Disable Right Click
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // Disable Keyboard Shortcuts (F12, Ctrl+U, Ctrl+S, Ctrl+Shift+I)
+        document.onkeydown = function(e) {
+            if(e.keyCode == 123) { return false; }
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { return false; }
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { return false; }
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { return false; }
+            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; }
+            if(e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) { return false; }
+        };
+
+        // =================================================================
+        //                     MAIN LOGIC BELOW
         // =================================================================
         
         document.addEventListener("DOMContentLoaded", () => {
@@ -283,12 +300,10 @@
             document.getElementById('text-gallery-1').innerText = galleryCaption1;
             document.getElementById('text-gallery-2').innerText = galleryCaption2;
             
-            // Set Music Source
             document.getElementById('audio-source').src = musicFile;
             document.getElementById('bg-music').load();
         });
 
-        // Background Particles
         const bg = document.getElementById('particles');
         for(let i=0; i<30; i++){
             let p = document.createElement('div');
@@ -299,12 +314,10 @@
             bg.appendChild(p);
         }
 
-        // 1. Start Journey & Play Music
         function startJourney() {
-            // Play Music Here (User Interaction Trigger)
             const audio = document.getElementById('bg-music');
             audio.play().catch(error => {
-                console.log("Autoplay prevented by browser, waiting for next interaction.");
+                console.log("Audio autoplay blocked.");
             });
 
             document.getElementById('page1').classList.remove('active');
@@ -312,7 +325,6 @@
             runCountdown();
         }
 
-        // 2. Countdown
         function runCountdown() {
             let count = 3;
             const el = document.getElementById('count-num');
@@ -327,7 +339,6 @@
             }, 1000);
         }
 
-        // 3. Envelope
         function openEnvelope(el) {
             if(el.classList.contains('open')) return;
             el.classList.add('open');
@@ -338,7 +349,6 @@
             }, 3000);
         }
 
-        // 4. Gallery Logic
         function startGalleryShow() {
             document.getElementById('slide1').classList.add('active-slide');
             setTimeout(() => {
@@ -352,7 +362,6 @@
             }, 8000);
         }
 
-        // 5. Main Wish Typing
         function startPage3Animation() {
             const titleBox = document.getElementById('title-box');
             titleBox.classList.remove('box-hidden');
@@ -384,7 +393,6 @@
             type();
         }
 
-        // 6. Telegram
         function sendToTelegram() {
             const msg = document.getElementById("msgInput").value;
             if(msg.trim() === "") { alert("কিছু লিখেন ভাই!"); return; }
@@ -395,7 +403,4 @@
         }
     </script>
 </body>
-
 </html>
-
-
