@@ -3,191 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+    <title>Happy Birthday Celebration!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&family=Poppins:wght@400;600&family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        /* --- General Setup --- */
+        /* =========================================
+           ১. সাধারণ সেটআপ
+        ========================================= */
         :root {
-            --primary: #ff00de;
-            --secondary: #00efff;
-            --glass: rgba(255, 255, 255, 0.15);
+            --primary-glow: #ff00de; 
+            --secondary-glow: #00efff;
+            --glass-bg: rgba(255, 255, 255, 0.08); /* হালকা স্বচ্ছ ব্যাকগ্রাউন্ড */
         }
         
-        /* Text Selection Disable (লেখা কপি করা যাবে না) */
         body {
-            -webkit-user-select: none; /* Safari */
-            -ms-user-select: none; /* IE 10 and IE 11 */
-            user-select: none; /* Standard syntax */
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', 'Hind Siliguri', sans-serif; }
-        
-        body {
-            background: radial-gradient(circle at center, #000000 20%, #001f4d 100%);
+            -webkit-user-select: none; -ms-user-select: none; user-select: none;
+            background: radial-gradient(circle at center, #1a001a 0%, #000000 100%);
             color: white;
             min-height: 100vh;
             overflow-x: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
+            margin: 0; padding: 0;
+            font-family: 'Poppins', 'Hind Siliguri', sans-serif;
         }
 
-        /* --- Background Animation --- */
-        .bg-animation {
-            position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: 0; pointer-events: none;
+        /* শিরোনাম ফন্ট */
+        h1, h2 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--secondary-glow);
+            text-shadow: 0 0 10px var(--secondary-glow);
+            margin: 0 0 15px 0;
+            line-height: 1.2;
         }
-        .particle {
-            position: absolute; bottom: -50px; background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%; animation: floatUp linear infinite;
+        h1 { font-size: 2.2rem; }
+        h2 { font-size: 1.8rem; }
+
+        /* =========================================
+           ২. ব্যাকগ্রাউন্ড এনিমেশন
+        ========================================= */
+        .bg-animation-container {
+            position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: 0; pointer-events: none; overflow: hidden;
         }
-        @keyframes floatUp {
-            0% { transform: translateY(0); opacity: 0; }
-            50% { opacity: 0.8; }
-            100% { transform: translateY(-100vh); opacity: 0; }
+        /* বেলুন */
+        .balloon {
+            position: absolute; bottom: -100px; width: 40px; height: 50px;
+            background: red; border-radius: 50%; opacity: 0.6; 
+            animation: floatBalloon 10s infinite ease-in;
+        }
+        .balloon::before {
+            content: ''; position: absolute; bottom: -10px; left: 50%;
+            width: 2px; height: 20px; background: rgba(255,255,255,0.3);
+        }
+        @keyframes floatBalloon {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+            100% { transform: translateY(-110vh) rotate(20deg); opacity: 0; }
+        }
+        /* কনফেটি */
+        .confetti {
+            position: absolute; top: -20px; width: 8px; height: 8px; background: gold;
+            animation: fallConfetti 5s infinite linear;
+        }
+        @keyframes fallConfetti {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(720deg); opacity: 0.5; }
         }
 
-        /* --- Page Layout --- */
+        /* =========================================
+           ৩. পেজ লেআউট (সব কিছু মাঝখানে রাখার লজিক)
+        ========================================= */
         .page {
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            width: 100%;
-            padding: 20px;
-            position: relative;
+            display: none; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; /* হরাইজন্টাল সেন্টার */
+            text-align: center; 
+            width: 100%; 
+            min-height: 100vh; /* পুরো স্ক্রিন জুড়ে থাকবে */
+            padding: 20px; 
+            position: relative; 
             z-index: 10;
         }
-        .page.active { display: flex; animation: fadeIn 0.8s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        .page.active { display: flex; animation: zoomInPage 0.8s ease; }
+        @keyframes zoomInPage { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
-        /* --- Countdown Animation --- */
-        #count-num {
-            font-size: 8rem;
-            font-weight: bold;
-            color: var(--primary);
-            text-shadow: 0 0 40px var(--primary);
-            animation: zoomPulse 1s infinite;
-        }
-        @keyframes zoomPulse {
-            0% { transform: scale(0.5); opacity: 0; }
-            50% { transform: scale(1.2); opacity: 1; }
-            100% { transform: scale(1); opacity: 0; }
-        }
-
-        /* --- Box Styles --- */
+        /* =========================================
+           ৪. বক্স ডিজাইন (Perfect Size & Premium Look)
+        ========================================= */
         .box {
-            background: var(--glass);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            margin: 15px 0;
+            padding: 25px 20px; /* উপরে-নিচে ২৫, ডানে-বামে ২০ */
+            margin: 15px auto; /* মাঝখানে রাখার জন্য */
+            
+            /* সাইজ কন্ট্রোল */
             width: 90%; 
-            max-width: 500px;
-            height: auto; 
-            min-height: 50px;
-            word-wrap: break-word;
-            display: inline-block;
+            max-width: 400px; /* এর চেয়ে বড় হবে না, তাই দেখতে সুন্দর লাগবে */
+            min-width: 300px;
+            height: auto;
+            
+            /* টেক্সট ও শ্যাডো */
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease;
         }
-
-        .box-hidden { opacity: 0; transform: translateY(20px); transition: 0.5s; display: none; }
-        .box-visible { opacity: 1; transform: translateY(0); display: inline-block; animation: popUp 0.5s ease; }
-        @keyframes popUp { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
-        h1 { font-size: 1.8rem; color: var(--secondary); margin-bottom: 10px; }
         
-        /* --- Button --- */
+        /* বক্সের ভেতরের টেক্সট */
+        .box p, .typing-text {
+            font-size: 1rem;
+            line-height: 1.6; /* পড়ার সুবিধার জন্য ফাঁকা */
+            color: #ececec;
+            letter-spacing: 0.5px;
+        }
+
+        .box-hidden { opacity: 0; transform: translateY(20px); display: none; }
+        .box-visible { opacity: 1; transform: translateY(0); display: inline-block; animation: fadeInUp 0.6s ease forwards; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* =========================================
+           ৫. বাটন ও অন্যান্য
+        ========================================= */
         .btn {
-            background: linear-gradient(90deg, #ff0080, #ff8c00);
+            background: linear-gradient(135deg, #ff0080, #7928ca);
             border: none; padding: 12px 30px;
-            color: white; font-size: 1.1rem; border-radius: 50px;
+            color: white; font-size: 1.1rem; font-weight: 600; border-radius: 50px;
             cursor: pointer; margin-top: 20px;
-            box-shadow: 0 5px 15px rgba(255, 0, 128, 0.4);
+            box-shadow: 0 4px 15px rgba(255, 0, 128, 0.4);
             transition: 0.3s;
-            animation: bounce 2s infinite;
+            font-family: 'Poppins', sans-serif;
         }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .btn:active { transform: scale(0.95); }
 
-        /* --- Envelope Styles --- */
-        .envelope-wrapper { position: relative; width: 280px; height: 180px; margin: 50px auto; cursor: pointer; }
-        .envelope { position: relative; width: 100%; height: 100%; background: #ff3333; border-radius: 0 0 10px 10px; }
-        .flap { 
-            position: absolute; top: 0; left: 0; width: 0; height: 0; 
-            border-left: 140px solid transparent; border-right: 140px solid transparent; 
-            border-top: 100px solid #ff5555; transform-origin: top; transition: 0.8s; z-index: 5; 
-        }
-        .pocket { 
-            position: absolute; bottom: 0; left: 0; width: 0; height: 0; 
-            border-left: 140px solid #ff3333; border-right: 140px solid #ff3333; 
-            border-top: 90px solid transparent; border-bottom: 90px solid #cc0000; 
-            border-radius: 0 0 10px 10px; z-index: 4; 
-        }
-        .letter { 
-            position: absolute; bottom: 0; left: 10px; width: 260px; height: 160px; 
-            background: white; color: #333; padding: 15px; text-align: center; 
-            transition: 1s ease-in-out; z-index: 2; display: flex; flex-direction: column; 
-            justify-content: center; align-items: center; border-radius: 5px; 
-        }
+        #count-num { font-size: 6rem; font-weight: bold; color: var(--primary-glow); text-shadow: 0 0 30px var(--primary-glow); animation: pulse 1s infinite; font-family: 'Pacifico', cursive; }
+        @keyframes pulse { 0% { transform: scale(0.8); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+
+        /* খাম (Envelope) */
+        .envelope-wrapper { position: relative; width: 260px; height: 170px; margin: 40px auto; cursor: pointer; }
+        .envelope { position: relative; width: 100%; height: 100%; background: #ff4757; border-radius: 0 0 10px 10px; }
+        .flap { position: absolute; top: 0; left: 0; width: 0; height: 0; border-left: 130px solid transparent; border-right: 130px solid transparent; border-top: 90px solid #ff6b81; transform-origin: top; transition: 0.6s; z-index: 5; }
+        .pocket { position: absolute; bottom: 0; left: 0; width: 0; height: 0; border-left: 130px solid #ff4757; border-right: 130px solid #ff4757; border-top: 85px solid transparent; border-bottom: 85px solid #e84118; border-radius: 0 0 10px 10px; z-index: 4; }
+        .letter { position: absolute; bottom: 0; left: 10px; width: 240px; height: 150px; background: white; color: #333; padding: 15px; text-align: center; transition: 0.8s; z-index: 2; display: flex; flex-direction: column; justify-content: center; align-items: center; border-radius: 5px; }
         .envelope-wrapper.open .flap { transform: rotateX(180deg); z-index: 1; }
-        .envelope-wrapper.open .letter { bottom: 120px; z-index: 6; }
+        .envelope-wrapper.open .letter { bottom: 100px; z-index: 6; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
 
-        /* --- Gallery Styles --- */
-        .gallery-slide {
-            display: none; 
-            animation: fadeInSlide 1s ease;
-        }
-        .gallery-slide.active-slide {
-            display: block;
-        }
-        @keyframes fadeInSlide { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        /* গ্যালারি */
+        .gallery-slide { display: none; animation: smoothFade 1s ease; }
+        .gallery-slide.active-slide { display: block; }
+        @keyframes smoothFade { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        .gallery-img { width: 220px; height: 220px; object-fit: cover; border-radius: 15px; border: 4px solid white; box-shadow: 0 0 20px rgba(0,239,255,0.5); margin-top: 15px; }
+        .caption-text { color: var(--primary-glow); font-weight: bold; font-size: 1.1rem; }
 
-        .gallery-img {
-            width: 250px;
-            height: 250px;
-            object-fit: cover;
-            border-radius: 15px;
-            border: 4px solid white;
-            box-shadow: 0 0 25px rgba(0,239,255,0.6);
-            margin-top: 15px;
-        }
-        .caption-text {
-            color: #ff00de;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        /* --- Page 3 Elements --- */
-        .profile-img {
-            width: 160px; height: 160px; border-radius: 50%;
-            border: 4px solid var(--primary); box-shadow: 0 0 30px var(--primary);
-            object-fit: cover; margin-bottom: 20px;
-            animation: zoomInImg 1s ease;
-        }
-        @keyframes zoomInImg { from { transform: scale(0); } to { transform: scale(1); } }
-
-        .typing-text { font-size: 1.1rem; line-height: 1.6; color: #ffffff; font-weight: 500; }
-        .cursor { display: inline-block; width: 3px; height: 1.2em; background: var(--secondary); animation: blink 0.8s infinite; vertical-align: bottom; }
+        /* প্রোফাইল ও টাইপিং */
+        .profile-img { width: 150px; height: 150px; border-radius: 50%; border: 4px solid var(--primary-glow); box-shadow: 0 0 25px var(--primary-glow); object-fit: cover; margin-bottom: 20px; animation: zoomImg 1s ease; }
+        @keyframes zoomImg { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        
+        .cursor { display: inline-block; width: 2px; height: 1em; background: var(--secondary-glow); animation: blink 0.8s infinite; vertical-align: bottom; }
         @keyframes blink { 50% { opacity: 0; } }
 
-        /* --- Page 4 --- */
-        textarea { width: 100%; background: rgba(255,255,255,0.9); border-radius: 8px; padding: 10px; border: none; font-size: 1rem; }
+        /* ইনপুট বক্স */
+        textarea { width: 100%; background: rgba(255,255,255,0.9); border-radius: 8px; padding: 12px; border: none; font-size: 0.95rem; margin-bottom: 10px; font-family: 'Hind Siliguri', sans-serif; }
     </style>
 </head>
 <body>
 
-    <div class="bg-animation" id="particles"></div>
-    
-    <audio id="bg-music" loop>
-        <source src="" type="audio/mp3" id="audio-source">
-    </audio>
+    <div class="bg-animation-container" id="bg-effects"></div>
+    <audio id="bg-music" loop><source src="" type="audio/mp3" id="audio-source"></audio>
 
     <div class="page active" id="page1">
         <div class="box">
-            <h1>THIS IS FOR YOU <span class="dynamic-name"></span>-🥳❤️‍🩹🫵</h1>
+            <h1>THIS IS FOR YOU <br><span class="dynamic-name" style="color: #fff;"></span> 🥳</h1>
         </div>
-        <div class="box">
+        <div class="box" style="padding: 15px;">
             <button class="btn" onclick="startJourney()">
                 CLICK DEO <span class="dynamic-name"></span> VAI 🎂👈
             </button>
@@ -199,32 +186,31 @@
     </div>
 
     <div class="page" id="page2">
-        <h2 style="margin-bottom: 20px;">চিঠিটা খুলে দেখো! 📩</h2>
+        <h2 style="margin-bottom: 30px;">চিঠিটা খুলে দেখো! 📩</h2>
         <div class="envelope-wrapper" onclick="openEnvelope(this)">
             <div class="envelope">
                 <div class="flap"></div>
                 <div class="pocket"></div>
                 <div class="letter">
-                    <h2 style="font-family: 'Dancing Script'; color: #d63031;">Happy Birthday<br><span class="dynamic-name"></span> ❤️</h2>
+                    <h2 style="font-family: 'Dancing Script'; color: #d63031; text-shadow: none; font-size: 1.5rem;">Happy Birthday<br><span class="dynamic-name"></span> ❤️</h2>
                 </div>
             </div>
         </div>
-        <p style="margin-top: 150px; opacity: 0.7;">(খামের ওপর ট্যাপ করো)</p>
+        <p style="margin-top: 130px; opacity: 0.7; font-size: 0.9rem;">(খামের ওপর ট্যাপ করো)</p>
     </div>
 
     <div class="page" id="page-gallery">
         <div class="gallery-slide" id="slide1">
-            <div class="box">
+            <div class="box" style="margin-bottom: 10px;">
                 <span class="caption-text" id="text-gallery-1"></span>
             </div>
-            <img src="" class="gallery-img" id="img-gallery-1" alt="Memories 1">
+            <img src="" class="gallery-img" id="img-gallery-1">
         </div>
-
         <div class="gallery-slide" id="slide2">
-            <div class="box">
+            <div class="box" style="margin-bottom: 10px;">
                 <span class="caption-text" id="text-gallery-2"></span>
             </div>
-            <img src="" class="gallery-img" id="img-gallery-2" alt="Memories 2">
+            <img src="" class="gallery-img" id="img-gallery-2">
         </div>
     </div>
 
@@ -232,7 +218,7 @@
         <img src="" alt="Profile" class="profile-img" id="img-profile">
         
         <div class="box box-hidden" id="title-box">
-            <span id="title-text" class="typing-text"></span>
+            <span id="title-text" class="typing-text" style="font-size: 1.3rem; font-weight: bold; color: var(--secondary-glow);"></span>
         </div>
 
         <div class="box box-hidden" id="caption-box">
@@ -242,17 +228,16 @@
 
     <div class="page" id="page4">
         <div class="box">
-            <h2>😄 টিট না দিলে বিয়ে হবে না!
-কি টিট দিবেন? নিচের বক্সে লিখুন ⬇️✍️! 🍔</h2>
-            <textarea id="msgInput" rows="4" placeholder="ভাই কিছু তো লিখেন..."></textarea>
+            <h2>😄 টিট না দিলে বিয়ে হবে না!<br>কি টিট দিবেন? ⬇️✍️ 🍔</h2>
+            <textarea id="msgInput" rows="3" placeholder="এখানে লিখুন..."></textarea>
             <button class="btn" onclick="sendToTelegram()">Send Message 🚀</button>
         </div>
-        <div style="margin-top: 30px; font-size: 0.8rem; color: #aaa;">Power By Netjoddha 🇧🇩</div>
+        <div style="margin-top: 30px; font-size: 0.8rem; opacity: 0.6;">Power By Netjoddha 🇧🇩</div>
     </div>
 
     <script>
         // =================================================================
-        //                 👇👇 EDIT HERE (সব কিছু এখানে পরিবর্তন করুন) 👇👇
+        //                 👇👇 EDIT HERE (সব পরিবর্তন এখানে) 👇👇
         // =================================================================
         
         const name = "CSB CEO-BIJOY"; 
@@ -266,51 +251,30 @@
         const galleryCaption2 = "স্মৃতিময় মুহূর্তগুলো... 📸";
 
         const titleMsg = "Happy Birthday CSB CEO - BIJOY VAI🎉";
-        const captionMsg = "🎉 Happy Birthday CSB CEO – Bijoy Vai 🎉
-
+        const captionMsg = `🎉 Happy Birthday CSB CEO – Bijoy Vai 🎉
 
 আজ আপনার বিশেষ দিন।
 আপনার মতো একজন মানুষকে নেতা হিসেবে পাওয়াটা সত্যিই সৌভাগ্যের।
-আপনি যেভাবে আমাদের সবার প্রতিনিধি হয়ে পথ দেখাচ্ছেন—
-তা ভাষায় প্রকাশ করা কঠিন।
 
+আপনাকে ধন্যবাদ বলার মতো শব্দ খুঁজে পাই না, শুধু হৃদয় থেকে সম্মান জানাই।
 
-আপনাকে ধন্যবাদ বলার মতো শব্দ খুঁজে পাই না,
-শুধু হৃদয় থেকে সম্মান আর ভালোবাসা জানাই।
 🤲 দোয়া করি—
+আপনি সবসময় সুস্থ থাকুন, নিরাপদ থাকুন।
+✨ শুভ জন্মদিন! ✨
 
-
-আপনি সবসময় সুস্থ থাকুন, নিরাপদ থাকুন,
-আর আপনার নেতৃত্বে CSB আরও সামনে এগিয়ে যাক।
-
-
-✨ শুভ জন্মদিন, Bijoy Vai! ✨
-— CSB Family 💙 💙\n\nAlways Smile! 😊";
+— CSB Family 💙 💙
+Always Smile! 😊`;
 
         const botToken = "8545704761:AAGpF-HdYFGPiwXuu9tz_r8xU_bk2FFClxo"; 
         const chatId = "8286027092"; 
 
         // =================================================================
-        //                 🚫🚫 SECURITY CODE (DO NOT EDIT) 🚫🚫
+        //                 🚫🚫 SECURITY & LOGIC 🚫🚫
         // =================================================================
         
-        // Disable Right Click
         document.addEventListener('contextmenu', event => event.preventDefault());
+        document.onkeydown = e => { if(e.keyCode == 123 || (e.ctrlKey && (e.keyCode == 'U'.charCodeAt(0) || e.keyCode == 'S'.charCodeAt(0)))) return false; };
 
-        // Disable Keyboard Shortcuts (F12, Ctrl+U, Ctrl+S, Ctrl+Shift+I)
-        document.onkeydown = function(e) {
-            if(e.keyCode == 123) { return false; }
-            if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { return false; }
-            if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { return false; }
-            if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { return false; }
-            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; }
-            if(e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) { return false; }
-        };
-
-        // =================================================================
-        //                     MAIN LOGIC BELOW
-        // =================================================================
-        
         document.addEventListener("DOMContentLoaded", () => {
             document.querySelectorAll('.dynamic-name').forEach(el => el.innerText = name);
             document.getElementById('img-profile').src = profileImage;
@@ -318,39 +282,41 @@
             document.getElementById('img-gallery-2').src = galleryImage2;
             document.getElementById('text-gallery-1').innerText = galleryCaption1;
             document.getElementById('text-gallery-2').innerText = galleryCaption2;
-            
             document.getElementById('audio-source').src = musicFile;
             document.getElementById('bg-music').load();
+            createBgEffects();
         });
 
-        const bg = document.getElementById('particles');
-        for(let i=0; i<30; i++){
-            let p = document.createElement('div');
-            p.className = 'particle';
-            p.style.left = Math.random() * 100 + '%';
-            p.style.width = p.style.height = (Math.random() * 15 + 5) + 'px';
-            p.style.animationDuration = (Math.random() * 5 + 5) + 's';
-            bg.appendChild(p);
+        function createBgEffects() {
+            const container = document.getElementById('bg-effects');
+            const colors = ['#ff00de', '#00efff', '#ffdd00', '#ff3333'];
+            for(let i=0; i<15; i++){
+                let b = document.createElement('div');
+                b.className = 'balloon'; b.style.left = Math.random()*100+'%';
+                b.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
+                b.style.animationDuration = (Math.random()*5+8)+'s';
+                container.appendChild(b);
+            }
+            for(let i=0; i<30; i++){
+                let c = document.createElement('div');
+                c.className = 'confetti'; c.style.left = Math.random()*100+'%';
+                c.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
+                c.style.animationDuration = (Math.random()*3+4)+'s';
+                container.appendChild(c);
+            }
         }
 
         function startJourney() {
-            const audio = document.getElementById('bg-music');
-            audio.play().catch(error => {
-                console.log("Audio autoplay blocked.");
-            });
-
+            document.getElementById('bg-music').play().catch(() => {});
             document.getElementById('page1').classList.remove('active');
             document.getElementById('page-countdown').classList.add('active');
             runCountdown();
         }
 
         function runCountdown() {
-            let count = 3;
-            const el = document.getElementById('count-num');
-            el.innerText = count;
+            let count = 3; const el = document.getElementById('count-num'); el.innerText = count;
             const timer = setInterval(() => {
-                count--;
-                if(count > 0) { el.innerText = count; } else {
+                count--; if(count > 0) el.innerText = count; else {
                     clearInterval(timer);
                     document.getElementById('page-countdown').classList.remove('active');
                     document.getElementById('page2').classList.add('active');
@@ -382,13 +348,9 @@
         }
 
         function startPage3Animation() {
-            const titleBox = document.getElementById('title-box');
-            titleBox.classList.remove('box-hidden');
-            titleBox.classList.add('box-visible');
+            document.getElementById('title-box').classList.add('box-visible');
             typeText('title-text', titleMsg, 50, () => {
-                const captionBox = document.getElementById('caption-box');
-                captionBox.classList.remove('box-hidden');
-                captionBox.classList.add('box-visible');
+                document.getElementById('caption-box').classList.add('box-visible');
                 typeText('caption-text', captionMsg, 40, () => {
                     setTimeout(() => {
                         document.getElementById('page3').classList.remove('active');
@@ -398,29 +360,21 @@
             });
         }
 
-        function typeText(elementId, text, speed, callback) {
-            const element = document.getElementById(elementId);
-            let i = 0;
-            element.innerHTML = "";
+        function typeText(elId, txt, spd, cb) {
+            const el = document.getElementById(elId); let i = 0; el.innerHTML = "";
             function type() {
-                if (i < text.length) {
-                    if (text.charAt(i) === '\n') { element.innerHTML += '<br>'; } 
-                    else { element.innerHTML += text.charAt(i); }
-                    i++; setTimeout(type, speed);
-                } else { if(callback) callback(); }
+                if (i < txt.length) { el.innerHTML += txt.charAt(i) === '\n' ? '<br>' : txt.charAt(i); i++; setTimeout(type, spd); } 
+                else { if(cb) cb(); }
             }
             type();
         }
 
         function sendToTelegram() {
             const msg = document.getElementById("msgInput").value;
-            if(msg.trim() === "") { alert("কিছু লিখেন ভাই!"); return; }
-            const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent("Birthday Reply (" + name + "): " + msg)}`;
-            fetch(url).then(res => {
-                if(res.ok) { alert("Sent! ✅"); document.getElementById("msgInput").value = ""; }
-            });
+            if(msg.trim() === "") { alert("লিখেন কিছু!"); return; }
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent("Reply: " + msg)}`)
+            .then(res => { if(res.ok) { alert("Sent!"); document.getElementById("msgInput").value = ""; }});
         }
     </script>
 </body>
 </html>
-
