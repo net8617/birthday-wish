@@ -3,22 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Celebration!</title>
+    <title>Happy Birthday Bijoy Vai!</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&family=Poppins:wght@400;600&family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+    
     <style>
         /* =========================================
-           ১. সাধারণ সেটআপ
+           ১. প্রিমিয়াম থিম সেটআপ
         ========================================= */
         :root {
-            --primary-glow: #ff00de; 
+            --primary-glow: #FFD700; 
             --secondary-glow: #00efff;
-            --glass-bg: rgba(255, 255, 255, 0.08); /* হালকা স্বচ্ছ ব্যাকগ্রাউন্ড */
+            --glass-bg: rgba(255, 255, 255, 0.1); 
+            --text-color: #ffffff;
         }
         
         body {
-            -webkit-user-select: none; -ms-user-select: none; user-select: none;
-            background: radial-gradient(circle at center, #1a001a 0%, #000000 100%);
-            color: white;
+            -webkit-user-select: none; user-select: none;
+            background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
+            color: var(--text-color);
             min-height: 100vh;
             overflow-x: hidden;
             display: flex;
@@ -26,158 +28,140 @@
             align-items: center;
             margin: 0; padding: 0;
             font-family: 'Poppins', 'Hind Siliguri', sans-serif;
+            position: relative;
         }
 
-        /* শিরোনাম ফন্ট */
-        h1, h2 {
-            font-family: 'Dancing Script', cursive;
-            color: var(--secondary-glow);
-            text-shadow: 0 0 10px var(--secondary-glow);
-            margin: 0 0 15px 0;
-            line-height: 1.2;
+        h1, h2 { 
+            font-family: 'Dancing Script', cursive; 
+            color: var(--primary-glow); 
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5); 
+            margin: 0; 
         }
-        h1 { font-size: 2.2rem; }
-        h2 { font-size: 1.8rem; }
-
+        
         /* =========================================
-           ২. ব্যাকগ্রাউন্ড এনিমেশন
+           ২. ব্যাকগ্রাউন্ড এনিমেশন (বেলুন ও ফায়ারওয়ার্কস)
         ========================================= */
-        .bg-animation-container {
-            position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: 0; pointer-events: none; overflow: hidden;
-        }
+        .bg-container { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+        
         /* বেলুন */
         .balloon {
-            position: absolute; bottom: -100px; width: 40px; height: 50px;
-            background: red; border-radius: 50%; opacity: 0.6; 
-            animation: floatBalloon 10s infinite ease-in;
+            position: absolute;
+            bottom: -100px;
+            width: 30px;
+            height: 40px;
+            background: red;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: floatUp linear infinite;
+            box-shadow: inset -5px -5px 0 rgba(0,0,0,0.1);
         }
         .balloon::before {
-            content: ''; position: absolute; bottom: -10px; left: 50%;
-            width: 2px; height: 20px; background: rgba(255,255,255,0.3);
+            content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
+            width: 2px; height: 15px; background: rgba(255,255,255,0.5);
         }
-        @keyframes floatBalloon {
+        @keyframes floatUp {
             0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
             100% { transform: translateY(-110vh) rotate(20deg); opacity: 0; }
         }
-        /* কনফেটি */
-        .confetti {
-            position: absolute; top: -20px; width: 8px; height: 8px; background: gold;
-            animation: fallConfetti 5s infinite linear;
+
+        /* ফায়ারওয়ার্কস / বোমা ফাটা কণা */
+        .firework-particle {
+            position: absolute;
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            animation: explode 1s ease-out forwards;
         }
-        @keyframes fallConfetti {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(110vh) rotate(720deg); opacity: 0.5; }
+        @keyframes explode {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; }
         }
 
         /* =========================================
-           ৩. পেজ লেআউট (সব কিছু মাঝখানে রাখার লজিক)
+           ৩. পেজ ও বক্স ডিজাইন
         ========================================= */
-        .page {
-            display: none; 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: center; /* হরাইজন্টাল সেন্টার */
-            text-align: center; 
-            width: 100%; 
-            min-height: 100vh; /* পুরো স্ক্রিন জুড়ে থাকবে */
-            padding: 20px; 
-            position: relative; 
-            z-index: 10;
-        }
-        .page.active { display: flex; animation: zoomInPage 0.8s ease; }
-        @keyframes zoomInPage { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        .page { display: none; width: 100%; min-height: 100vh; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; z-index: 10; padding: 20px; animation: zoomIn 0.8s ease; }
+        .page.active { display: flex; }
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
-        /* =========================================
-           ৪. বক্স ডিজাইন (Perfect Size & Premium Look)
-        ========================================= */
         .box {
             background: var(--glass-bg);
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 15px;
-            padding: 25px 20px; /* উপরে-নিচে ২৫, ডানে-বামে ২০ */
-            margin: 15px auto; /* মাঝখানে রাখার জন্য */
-            
-            /* সাইজ কন্ট্রোল */
-            width: 90%; 
-            max-width: 400px; /* এর চেয়ে বড় হবে না, তাই দেখতে সুন্দর লাগবে */
-            min-width: 300px;
-            height: auto;
-            
-            /* টেক্সট ও শ্যাডো */
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.05);
-            transition: transform 0.3s ease;
-        }
-        
-        /* বক্সের ভেতরের টেক্সট */
-        .box p, .typing-text {
-            font-size: 1rem;
-            line-height: 1.6; /* পড়ার সুবিধার জন্য ফাঁকা */
-            color: #ececec;
-            letter-spacing: 0.5px;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 20px;
+            padding: 30px 20px;
+            width: 90%; max-width: 400px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            margin: 10px auto;
+            position: relative;
         }
 
-        .box-hidden { opacity: 0; transform: translateY(20px); display: none; }
-        .box-visible { opacity: 1; transform: translateY(0); display: inline-block; animation: fadeInUp 0.6s ease forwards; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* =========================================
-           ৫. বাটন ও অন্যান্য
-        ========================================= */
-        .btn {
-            background: linear-gradient(135deg, #ff0080, #7928ca);
-            border: none; padding: 12px 30px;
-            color: white; font-size: 1.1rem; font-weight: 600; border-radius: 50px;
-            cursor: pointer; margin-top: 20px;
-            box-shadow: 0 4px 15px rgba(255, 0, 128, 0.4);
-            transition: 0.3s;
+        .name-badge {
+            background: linear-gradient(135deg, #FFD700, #ff8c00);
+            color: #000;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            display: inline-block;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
             font-family: 'Poppins', sans-serif;
+            letter-spacing: 1px;
         }
-        .btn:active { transform: scale(0.95); }
 
-        #count-num { font-size: 6rem; font-weight: bold; color: var(--primary-glow); text-shadow: 0 0 30px var(--primary-glow); animation: pulse 1s infinite; font-family: 'Pacifico', cursive; }
-        @keyframes pulse { 0% { transform: scale(0.8); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        .caption-box {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 15px;
+            font-size: 1.1rem;
+            color: #e0e0e0;
+            min-height: 50px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
 
-        /* খাম (Envelope) */
-        .envelope-wrapper { position: relative; width: 260px; height: 170px; margin: 40px auto; cursor: pointer; }
-        .envelope { position: relative; width: 100%; height: 100%; background: #ff4757; border-radius: 0 0 10px 10px; }
-        .flap { position: absolute; top: 0; left: 0; width: 0; height: 0; border-left: 130px solid transparent; border-right: 130px solid transparent; border-top: 90px solid #ff6b81; transform-origin: top; transition: 0.6s; z-index: 5; }
-        .pocket { position: absolute; bottom: 0; left: 0; width: 0; height: 0; border-left: 130px solid #ff4757; border-right: 130px solid #ff4757; border-top: 85px solid transparent; border-bottom: 85px solid #e84118; border-radius: 0 0 10px 10px; z-index: 4; }
-        .letter { position: absolute; bottom: 0; left: 10px; width: 240px; height: 150px; background: white; color: #333; padding: 15px; text-align: center; transition: 0.8s; z-index: 2; display: flex; flex-direction: column; justify-content: center; align-items: center; border-radius: 5px; }
-        .envelope-wrapper.open .flap { transform: rotateX(180deg); z-index: 1; }
-        .envelope-wrapper.open .letter { bottom: 100px; z-index: 6; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .envelope-area { perspective: 1000px; margin-top: 50px; cursor: pointer; }
+        .envelope { width: 280px; height: 180px; background: #ff4757; position: relative; border-radius: 0 0 10px 10px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); }
+        .flap { position: absolute; top: 0; left: 0; border-left: 140px solid transparent; border-right: 140px solid transparent; border-top: 100px solid #ff6b81; transform-origin: top; transition: 0.6s ease-in-out; z-index: 5; }
+        .pocket { position: absolute; bottom: 0; left: 0; border-left: 140px solid #ff4757; border-right: 140px solid #ff4757; border-top: 90px solid transparent; border-bottom: 90px solid #e84118; border-radius: 0 0 10px 10px; z-index: 4; }
+        .letter { position: absolute; bottom: 0; left: 15px; width: 250px; height: 160px; background: #fff; padding: 15px; color: #333; text-align: center; border-radius: 5px; z-index: 2; transition: 0.8s ease-in-out; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .envelope.open .flap { transform: rotateX(180deg); z-index: 1; }
+        .envelope.open .letter { bottom: 80px; z-index: 6; transform: translateY(-40px); }
 
-        /* গ্যালারি */
-        .gallery-slide { display: none; animation: smoothFade 1s ease; }
-        .gallery-slide.active-slide { display: block; }
-        @keyframes smoothFade { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-        .gallery-img { width: 220px; height: 220px; object-fit: cover; border-radius: 15px; border: 4px solid white; box-shadow: 0 0 20px rgba(0,239,255,0.5); margin-top: 15px; }
-        .caption-text { color: var(--primary-glow); font-weight: bold; font-size: 1.1rem; }
-
-        /* প্রোফাইল ও টাইপিং */
-        .profile-img { width: 150px; height: 150px; border-radius: 50%; border: 4px solid var(--primary-glow); box-shadow: 0 0 25px var(--primary-glow); object-fit: cover; margin-bottom: 20px; animation: zoomImg 1s ease; }
-        @keyframes zoomImg { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        #count-num { font-size: 7rem; font-family: 'Pacifico'; color: var(--secondary-glow); text-shadow: 0 0 30px var(--secondary-glow); }
+        .profile-img { width: 150px; height: 150px; border-radius: 50%; border: 5px solid var(--primary-glow); object-fit: cover; margin-bottom: 25px; box-shadow: 0 0 30px rgba(255, 215, 0, 0.4); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
         
-        .cursor { display: inline-block; width: 2px; height: 1em; background: var(--secondary-glow); animation: blink 0.8s infinite; vertical-align: bottom; }
-        @keyframes blink { 50% { opacity: 0; } }
-
-        /* ইনপুট বক্স */
-        textarea { width: 100%; background: rgba(255,255,255,0.9); border-radius: 8px; padding: 12px; border: none; font-size: 0.95rem; margin-bottom: 10px; font-family: 'Hind Siliguri', sans-serif; }
+        .gallery-img { width: 100%; border-radius: 12px; border: 3px solid rgba(255,255,255,0.5); margin-bottom: 15px; object-fit: cover; height: 260px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        
+        textarea { width: 100%; background: rgba(255,255,255,0.9); border: none; padding: 12px; border-radius: 8px; font-family: 'Hind Siliguri'; margin-bottom: 15px; outline: none; font-size: 1rem; }
+        .btn { background: linear-gradient(135deg, #ff00de, #00efff); border: none; padding: 12px 30px; color: #fff; font-weight: bold; border-radius: 50px; cursor: pointer; margin-top: 10px; box-shadow: 0 5px 20px rgba(0, 239, 255, 0.4); transition: 0.3s; }
+        .btn:hover { transform: scale(1.05); }
     </style>
 </head>
-<body>
+<body onclick="enableMusic()"> 
+    
+    <audio id="bg-music" loop><source src="" type="audio/mp3"></audio>
+    <div class="bg-container" id="bg-effects"></div>
 
-    <div class="bg-animation-container" id="bg-effects"></div>
-    <audio id="bg-music" loop><source src="" type="audio/mp3" id="audio-source"></audio>
-
-    <div class="page active" id="page1">
+    <div class="page active" id="page-0">
         <div class="box">
-            <h1>THIS IS FOR YOU <br><span class="dynamic-name" style="color: #fff;"></span> 🥳</h1>
+            <h2 style="color: #ffdd00; font-size: 2rem;">Wait A Minute! ✋</h2>
+            <br>
+            <p style="font-size: 1.3rem; font-weight: bold; color: #fff;">
+                "আপনি বলে আজকে ডাউনলোড হইছেন...?? <br>
+                কেমনে কি ভাই? 🤔"
+            </p>
+            <br>
+            <p style="color: #ccc;">যাই হোক...</p>
+            <h2 style="font-size: 1.8rem; margin-top: 15px;">Happy Birthday To You! 🎂</h2>
         </div>
-        <div class="box" style="padding: 15px;">
-            <button class="btn" onclick="startJourney()">
-                CLICK DEO <span class="dynamic-name"></span> VAI 🎂👈
-            </button>
+    </div>
+
+    <div class="page" id="page-1">
+        <div class="box">
+            <h1>THIS IS FOR YOU <br><span class="dynamic-name" style="color: #00efff;"></span></h1>
+            <p style="margin-top: 10px;">আজকের দিনটা স্পেশাল, তাই আয়োজনটাও স্পেশাল!</p>
+            <p style="font-size: 0.9rem; opacity: 0.7; margin-top: 25px; font-style: italic;">(Please Wait...)</p>
         </div>
     </div>
 
@@ -185,195 +169,286 @@
         <div id="count-num">3</div>
     </div>
 
-    <div class="page" id="page2">
-        <h2 style="margin-bottom: 30px;">চিঠিটা খুলে দেখো! 📩</h2>
-        <div class="envelope-wrapper" onclick="openEnvelope(this)">
-            <div class="envelope">
+    <div class="page" id="page-2">
+        <h2 style="margin-bottom: 40px;">আপনার জন্য একটি চিঠি 💌</h2>
+        <div class="envelope-area" onclick="openEnvelope()">
+            <div class="envelope" id="envelope">
                 <div class="flap"></div>
                 <div class="pocket"></div>
                 <div class="letter">
-                    <h2 style="font-family: 'Dancing Script'; color: #d63031; text-shadow: none; font-size: 1.5rem;">Happy Birthday<br><span class="dynamic-name"></span> ❤️</h2>
+                    <h2 style="font-family: 'Dancing Script'; color: #ff3333; text-shadow: none;">Happy Birthday</h2>
+                    <h3 class="dynamic-name" style="color: #333; font-family: 'Poppins'; font-size: 1rem; margin-top: 5px; text-shadow: none;"></h3>
+                    <p style="font-size: 1.5rem;">❤️</p>
                 </div>
             </div>
         </div>
-        <p style="margin-top: 130px; opacity: 0.7; font-size: 0.9rem;">(খামের ওপর ট্যাপ করো)</p>
+        <p style="margin-top: 100px; opacity: 0.7;">(চিঠিটি পড়ার জন্য খামটি খুলুন)</p>
     </div>
 
     <div class="page" id="page-gallery">
-        <div class="gallery-slide" id="slide1">
-            <div class="box" style="margin-bottom: 10px;">
-                <span class="caption-text" id="text-gallery-1"></span>
-            </div>
-            <img src="" class="gallery-img" id="img-gallery-1">
-        </div>
-        <div class="gallery-slide" id="slide2">
-            <div class="box" style="margin-bottom: 10px;">
-                <span class="caption-text" id="text-gallery-2"></span>
-            </div>
-            <img src="" class="gallery-img" id="img-gallery-2">
-        </div>
-    </div>
-
-    <div class="page" id="page3">
-        <img src="" alt="Profile" class="profile-img" id="img-profile">
-        
-        <div class="box box-hidden" id="title-box">
-            <span id="title-text" class="typing-text" style="font-size: 1.3rem; font-weight: bold; color: var(--secondary-glow);"></span>
-        </div>
-
-        <div class="box box-hidden" id="caption-box">
-            <span id="caption-text" class="typing-text"></span><span class="cursor"></span>
-        </div>
-    </div>
-
-    <div class="page" id="page4">
         <div class="box">
-            <h2>😄 টিট না দিলে বিয়ে হবে না!<br>কি টিট দিবেন? ⬇️✍️ 🍔</h2>
-            <textarea id="msgInput" rows="3" placeholder="এখানে লিখুন..."></textarea>
+            <img src="" id="gallery-img" class="gallery-img">
+            
+            <div class="name-badge">
+                CSB CEO - BIJOY VAI
+            </div>
+
+            <div class="caption-box">
+                <span id="gallery-caption"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="page" id="page-3">
+        <img src="" class="profile-img" id="main-profile-img">
+        <div class="box">
+            <h3 id="typing-title" style="color: var(--primary-glow); margin-bottom: 15px; font-size: 1.4rem;"></h3>
+            <p id="typing-body" style="font-size: 1rem; text-align: left; line-height: 1.7; color: #f0f0f0;"></p>
+        </div>
+    </div>
+
+    <div class="page" id="page-4">
+        <div class="box">
+            <h2>😄 টিট না দিলে বিয়ে হবে না!<br>কি টিট দিবেন? ⬇️</h2>
+            <textarea id="msgInput" rows="4" placeholder="আপনার মনের কথা লিখুন..."></textarea>
             <button class="btn" onclick="sendToTelegram()">Send Message 🚀</button>
         </div>
-        <div style="margin-top: 30px; font-size: 0.8rem; opacity: 0.6;">Power By Netjoddha 🇧🇩</div>
+        <div style="margin-top: 20px; font-size: 0.8rem; opacity: 0.6;">Power By Netjoddha 🇧🇩</div>
     </div>
 
     <script>
         // =================================================================
-        //                 👇👇 EDIT HERE (সব পরিবর্তন এখানে) 👇👇
+        //                 👇👇 কনফিগারেশন 👇👇
         // =================================================================
-        
-        const name = "CSB CEO-BIJOY"; 
-        const musicFile = "song.mp3"; 
+        const config = {
+            name: "CSB CEO-BIJOY",
+            music: "song.mp3", 
 
-        const profileImage = "https://d.top4top.io/p_365078o2b0.jpg"; 
-        const galleryImage1 = "https://i.top4top.io/p_3650n2bbj0.png"; 
-        const galleryImage2 = "https://k.top4top.io/p_3650xejs01.jpg"; 
+            // ছবিসমূহ
+            profilePic: "https://d.top4top.io/p_365078o2b0.jpg",
+            gallery1: "https://i.top4top.io/p_3650n2bbj0.png",
+            gallery2: "https://k.top4top.io/p_3650xejs01.jpg",
 
-        const galleryCaption1 = "তোমার হাসিমুখ! 😊";
-        const galleryCaption2 = "স্মৃতিময় মুহূর্তগুলো... 📸";
+            // গ্যালারি ক্যাপশন
+            cap1: "তোমার হাসিমুখ! 😊",
+            cap2: "স্মৃতিময় মুহূর্তগুলো... 📸",
 
-        const titleMsg = "Happy Birthday CSB CEO - BIJOY VAI🎉";
-        const captionMsg = `🎉 Happy Birthday CSB CEO – Bijoy Vai 🎉
-
-আজ আপনার বিশেষ দিন।
+            // টাইটেল (শেষের মেসেজ)
+            titleMsg: "🎉 Happy Birthday CSB CEO – Bijoy Vai 🎉",
+            
+            // মেইন বডি মেসেজ
+            bodyMsg: `আজ আপনার বিশেষ দিন।
 আপনার মতো একজন মানুষকে নেতা হিসেবে পাওয়াটা সত্যিই সৌভাগ্যের।
+আপনি যেভাবে আমাদের সবার প্রতিনিধি হয়ে পথ দেখাচ্ছেন—
+তা ভাষায় প্রকাশ করা কঠিন।
 
-আপনাকে ধন্যবাদ বলার মতো শব্দ খুঁজে পাই না, শুধু হৃদয় থেকে সম্মান জানাই।
+আপনাকে ধন্যবাদ বলার মতো শব্দ খুঁজে পাই না,
+শুধু হৃদয় থেকে সম্মান আর ভালোবাসা জানাই।
 
 🤲 দোয়া করি—
-আপনি সবসময় সুস্থ থাকুন, নিরাপদ থাকুন।
-✨ শুভ জন্মদিন! ✨
+আপনি সবসময় সুস্থ থাকুন, নিরাপদ থাকুন,
+আর আপনার নেতৃত্বে CSB আরও সামনে এগিয়ে যাক।
 
-— CSB Family 💙 💙
-Always Smile! 😊`;
+✨ শুভ জন্মদিন, Bijoy Vai! ✨
+— CSB Family 💙`,
 
-        const botToken = "8545704761:AAGpF-HdYFGPiwXuu9tz_r8xU_bk2FFClxo"; 
-        const chatId = "8286027092"; 
+            // টেলিগ্রাম বট
+            botToken: "8545704761:AAGpF-HdYFGPiwXuu9tz_r8xU_bk2FFClxo", 
+            chatId: "8286027092"
+        };
 
         // =================================================================
-        //                 🚫🚫 SECURITY & LOGIC 🚫🚫
+        //                 🚀 লজিক এবং এনিমেশন
         // =================================================================
         
-        document.addEventListener('contextmenu', event => event.preventDefault());
-        document.onkeydown = e => { if(e.keyCode == 123 || (e.ctrlKey && (e.keyCode == 'U'.charCodeAt(0) || e.keyCode == 'S'.charCodeAt(0)))) return false; };
-
         document.addEventListener("DOMContentLoaded", () => {
-            document.querySelectorAll('.dynamic-name').forEach(el => el.innerText = name);
-            document.getElementById('img-profile').src = profileImage;
-            document.getElementById('img-gallery-1').src = galleryImage1;
-            document.getElementById('img-gallery-2').src = galleryImage2;
-            document.getElementById('text-gallery-1').innerText = galleryCaption1;
-            document.getElementById('text-gallery-2').innerText = galleryCaption2;
-            document.getElementById('audio-source').src = musicFile;
+            // ডাটা লোড
+            document.querySelectorAll('.dynamic-name').forEach(e => e.innerText = config.name);
+            document.getElementById('bg-music').querySelector('source').src = config.music;
             document.getElementById('bg-music').load();
-            createBgEffects();
+            document.getElementById('main-profile-img').src = config.profilePic;
+            
+            // ব্যাকগ্রাউন্ড ইফেক্ট চালু
+            startBackgroundEffects();
+
+            // টাইমিং লজিক
+            setTimeout(() => {
+                showPage('page-1');
+                setTimeout(() => {
+                    startCountdown();
+                }, 4000); 
+            }, 4000); 
         });
 
-        function createBgEffects() {
+        // ব্যাকগ্রাউন্ড এনিমেশন কন্ট্রোলার (বেলুন + ফায়ারওয়ার্কস)
+        function startBackgroundEffects() {
             const container = document.getElementById('bg-effects');
-            const colors = ['#ff00de', '#00efff', '#ffdd00', '#ff3333'];
-            for(let i=0; i<15; i++){
+            const colors = ['#FF4D4D', '#4DFF4D', '#4D4DFF', '#FFFF4D', '#FF4DFF', '#00EFFF'];
+
+            // ১. বেলুন তৈরি (looping with CSS)
+            for(let i=0; i<25; i++) {
                 let b = document.createElement('div');
-                b.className = 'balloon'; b.style.left = Math.random()*100+'%';
-                b.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
-                b.style.animationDuration = (Math.random()*5+8)+'s';
+                b.className = 'balloon';
+                b.style.left = Math.random() * 100 + '%';
+                b.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                b.style.animationDuration = (Math.random() * 5 + 10) + 's';
+                b.style.animationDelay = (Math.random() * 10) + 's';
                 container.appendChild(b);
             }
-            for(let i=0; i<30; i++){
-                let c = document.createElement('div');
-                c.className = 'confetti'; c.style.left = Math.random()*100+'%';
-                c.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
-                c.style.animationDuration = (Math.random()*3+4)+'s';
-                container.appendChild(c);
+
+            // ২. বোমা ফাটা / ফায়ারওয়ার্কস (মাঝে মাঝে)
+            setInterval(() => {
+                createFirework(container, colors);
+            }, 2000); // প্রতি ২ সেকেন্ডে একবার ফাটবে
+        }
+
+        function createFirework(container, colors) {
+            const x = Math.random() * 100; // Random X Position
+            const y = Math.random() * 60 + 10; // Random Y Position (Top area)
+            
+            // ২০ টি কণা তৈরি হবে
+            for(let i=0; i<20; i++) {
+                let p = document.createElement('div');
+                p.className = 'firework-particle';
+                p.style.left = x + '%';
+                p.style.top = y + '%';
+                p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                // র্যান্ডম দিকে ছড়িয়ে দেওয়া
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 100 + 50; // কণা কতদূর যাবে
+                const tx = Math.cos(angle) * distance + 'px';
+                const ty = Math.sin(angle) * distance + 'px';
+                
+                p.style.setProperty('--x', tx);
+                p.style.setProperty('--y', ty);
+                
+                container.appendChild(p);
+
+                // এনিমেশন শেষে ডিলেট
+                setTimeout(() => p.remove(), 1000);
             }
         }
 
-        function startJourney() {
-            document.getElementById('bg-music').play().catch(() => {});
-            document.getElementById('page1').classList.remove('active');
-            document.getElementById('page-countdown').classList.add('active');
-            runCountdown();
+        // মিউজিক পারমিশন
+        function enableMusic() {
+            document.getElementById('bg-music').play().catch(e => {});
         }
 
-        function runCountdown() {
-            let count = 3; const el = document.getElementById('count-num'); el.innerText = count;
-            const timer = setInterval(() => {
-                count--; if(count > 0) el.innerText = count; else {
-                    clearInterval(timer);
-                    document.getElementById('page-countdown').classList.remove('active');
-                    document.getElementById('page2').classList.add('active');
+        function showPage(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+
+        function startCountdown() {
+            showPage('page-countdown');
+            let c = 3;
+            const el = document.getElementById('count-num');
+            el.innerText = c;
+            const t = setInterval(() => {
+                c--;
+                if(c > 0) el.innerText = c;
+                else {
+                    clearInterval(t);
+                    showPage('page-2'); // খাম পেজে যাবে
                 }
             }, 1000);
         }
 
-        function openEnvelope(el) {
-            if(el.classList.contains('open')) return;
-            el.classList.add('open');
+        function openEnvelope() {
+            const env = document.getElementById('envelope');
+            if(env.classList.contains('open')) return;
+            
+            document.getElementById('bg-music').play().catch(e => {});
+            env.classList.add('open');
+
+            // খাম খোলার ৩ সেকেন্ড পর গ্যালারি
             setTimeout(() => {
-                document.getElementById('page2').classList.remove('active');
-                document.getElementById('page-gallery').classList.add('active');
-                startGalleryShow(); 
-            }, 3000);
+                runGallery();
+            }, 3000); 
         }
 
-        function startGalleryShow() {
-            document.getElementById('slide1').classList.add('active-slide');
+        function runGallery() {
+            showPage('page-gallery');
+            const img = document.getElementById('gallery-img');
+            const cap = document.getElementById('gallery-caption');
+
+            // ১ম ছবি
+            img.style.opacity = 0;
             setTimeout(() => {
-                document.getElementById('slide1').classList.remove('active-slide');
-                document.getElementById('slide2').classList.add('active-slide');
-            }, 4000);
+                img.src = config.gallery1;
+                cap.innerText = config.cap1;
+                img.style.opacity = 1;
+            }, 200);
+
+            // ২য় ছবি (৪ সেকেন্ড পর)
             setTimeout(() => {
-                document.getElementById('page-gallery').classList.remove('active');
-                document.getElementById('page3').classList.add('active');
-                startPage3Animation();
-            }, 8000);
+                img.style.opacity = 0;
+                setTimeout(() => {
+                    img.src = config.gallery2;
+                    cap.innerText = config.cap2;
+                    img.style.opacity = 1;
+                }, 500);
+                
+                // মেইন মেসেজ পেজ (আরও ৪ সেকেন্ড পর)
+                setTimeout(() => {
+                    showPage('page-3');
+                    startTyping();
+                }, 4000);
+
+            }, 4000); 
         }
 
-        function startPage3Animation() {
-            document.getElementById('title-box').classList.add('box-visible');
-            typeText('title-text', titleMsg, 50, () => {
-                document.getElementById('caption-box').classList.add('box-visible');
-                typeText('caption-text', captionMsg, 40, () => {
-                    setTimeout(() => {
-                        document.getElementById('page3').classList.remove('active');
-                        document.getElementById('page4').classList.add('active');
-                    }, 4000); 
-                });
-            });
-        }
-
-        function typeText(elId, txt, spd, cb) {
-            const el = document.getElementById(elId); let i = 0; el.innerHTML = "";
-            function type() {
-                if (i < txt.length) { el.innerHTML += txt.charAt(i) === '\n' ? '<br>' : txt.charAt(i); i++; setTimeout(type, spd); } 
-                else { if(cb) cb(); }
+        // টাইপিং ইফেক্ট
+        function startTyping() {
+            const titleEl = document.getElementById('typing-title');
+            const bodyEl = document.getElementById('typing-body');
+            let i = 0; 
+            
+            function typeTitle() {
+                if(i < config.titleMsg.length) {
+                    titleEl.innerHTML += config.titleMsg.charAt(i);
+                    i++; setTimeout(typeTitle, 50);
+                } else {
+                    i = 0; typeBody(); 
+                }
             }
-            type();
+            function typeBody() {
+                if(i < config.bodyMsg.length) {
+                    const char = config.bodyMsg.charAt(i);
+                    bodyEl.innerHTML += char === '\n' ? '<br>' : char;
+                    i++; setTimeout(typeBody, 30);
+                } else {
+                    setTimeout(() => showPage('page-4'), 8000);
+                }
+            }
+            typeTitle();
         }
 
+        // সুন্দর ফরম্যাটেড টেলিগ্রাম মেসেজ
         function sendToTelegram() {
             const msg = document.getElementById("msgInput").value;
-            if(msg.trim() === "") { alert("লিখেন কিছু!"); return; }
-            fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent("Reply: " + msg)}`)
-            .then(res => { if(res.ok) { alert("Sent!"); document.getElementById("msgInput").value = ""; }});
+            if(!msg.trim()) { alert("খালি মেসেজ পাঠাবেন না!"); return; }
+
+            // HTML ফরম্যাট
+            const formattedMsg = `
+<b>🎊 NEW BIRTHDAY WISH! 🎊</b>
+➖➖➖➖➖➖➖➖➖➖
+👤 <b>From:</b> <code>${config.name}</code> (Site Visitor)
+💌 <b>Message:</b>
+<blockquote>${msg}</blockquote>
+➖➖➖➖➖➖➖➖➖➖
+⌚ <b>Time:</b> ${new Date().toLocaleTimeString()}
+🚀 <b>Sent Via:</b> Birthday Site
+            `;
+
+            fetch(`https://api.telegram.org/bot${config.botToken}/sendMessage?chat_id=${config.chatId}&text=${encodeURIComponent(formattedMsg)}&parse_mode=HTML`)
+            .then(res => {
+                if(res.ok) {
+                    alert("মেসেজ পাঠানো হয়েছে! ধন্যবাদ ❤️");
+                    document.getElementById("msgInput").value = "";
+                }
+            });
         }
     </script>
 </body>
