@@ -3,23 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Bijoy Vai!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&family=Poppins:wght@400;600&family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+    <title id="page-title">Happy Birthday!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&family=Poppins:wght@400;600&family=Hind+Siliguri:wght@400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     
     <style>
         /* =========================================
-           ১. প্রিমিয়াম থিম সেটআপ
+           ১. প্রিমিয়াম থিম সেটআপ (সব পেজে একই ব্যাকগ্রাউন্ড)
         ========================================= */
         :root {
             --primary-glow: #FFD700; 
             --secondary-glow: #00efff;
-            --glass-bg: rgba(255, 255, 255, 0.1); 
+            --pink-glow: #ff4b8b;
+            --glass-bg: rgba(255, 255, 255, 0.08); 
             --text-color: #ffffff;
         }
         
         body {
             -webkit-user-select: none; user-select: none;
-            background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
+            background: radial-gradient(circle at center, #230918 0%, #090308 100%);
             color: var(--text-color);
             min-height: 100vh;
             overflow-x: hidden;
@@ -43,7 +44,6 @@
         ========================================= */
         .bg-container { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: 0; pointer-events: none; overflow: hidden; }
         
-        /* বেলুন */
         .balloon {
             position: absolute;
             bottom: -100px;
@@ -64,78 +64,637 @@
             100% { transform: translateY(-110vh) rotate(20deg); opacity: 0; }
         }
 
-        /* ফায়ারওয়ার্কস / বোমা ফাটা কণা */
         .firework-particle {
             position: absolute;
-            width: 6px; height: 6px;
+            width: 7px; height: 7px;
             border-radius: 50%;
-            animation: explode 1s ease-out forwards;
+            box-shadow: 0 0 8px currentColor;
+            animation: explode 1.1s ease-out forwards;
         }
         @keyframes explode {
-            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            0% { transform: translate(0, 0) scale(1.2); opacity: 1; }
             100% { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; }
         }
 
         /* =========================================
-           ৩. পেজ ও বক্স ডিজাইন
+           ২.৫ ১ম পেজ: স্পেশাল ইন্ট্রো স্ক্রিন ডিজাইন
         ========================================= */
-        .page { display: none; width: 100%; min-height: 100vh; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; z-index: 10; padding: 20px; animation: zoomIn 0.8s ease; }
+        .intro-wrapper {
+            width: 100%;
+            max-width: 380px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeUpIntro 1.2s ease forwards;
+        }
+
+        @keyframes fadeUpIntro {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .top-heart {
+            font-size: 3.4rem;
+            color: #ff4b8b;
+            filter: drop-shadow(0 0 18px rgba(255, 75, 139, 0.75));
+            margin-bottom: 22px;
+            animation: heartBeat 1.5s infinite ease-in-out;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.16); }
+            50% { transform: scale(0.98); }
+            75% { transform: scale(1.12); }
+        }
+
+        .intro-sub {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.78rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #d4b8c7;
+            margin-bottom: 12px;
+            opacity: 0.9;
+        }
+
+        .intro-hey {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.6rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 0 25px rgba(255, 255, 255, 0.25);
+            margin: 0 0 15px 0;
+            line-height: 1.1;
+        }
+
+        .divider-row {
+            width: 85%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 10px 0 22px;
+        }
+
+        .pink-line {
+            flex: 1;
+            height: 3.5px;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #ff3e88, #ff6fa5);
+            box-shadow: 0 0 14px rgba(255, 62, 136, 0.8);
+            animation: lineExpand 1.3s ease-out forwards;
+        }
+
+        @keyframes lineExpand {
+            from { transform: scaleX(0); opacity: 0; }
+            to { transform: scaleX(1); opacity: 1; }
+        }
+
+        .side-heart {
+            font-size: 2rem;
+            filter: drop-shadow(0 0 14px rgba(255, 45, 85, 0.8));
+            animation: floatSideHeart 2.6s infinite ease-in-out;
+        }
+
+        @keyframes floatSideHeart {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-7px) rotate(5deg); }
+        }
+
+        .intro-desc {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.05rem;
+            color: #e6d5de;
+            margin: 0 0 32px 0;
+            letter-spacing: 0.3px;
+        }
+
+        .surprise-btn {
+            background: linear-gradient(90deg, #ff3d7f 0%, #c837ab 100%);
+            color: #ffffff;
+            border: none;
+            padding: 15px 36px;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 8px 28px rgba(255, 61, 127, 0.5);
+            transition: all 0.3s ease;
+            animation: btnGlowPulse 2.2s infinite;
+        }
+
+        .surprise-btn:hover {
+            transform: scale(1.06);
+            box-shadow: 0 10px 35px rgba(255, 61, 127, 0.8);
+        }
+
+        @keyframes btnGlowPulse {
+            0%, 100% { box-shadow: 0 6px 25px rgba(255, 61, 127, 0.45); }
+            50% { box-shadow: 0 8px 36px rgba(200, 55, 171, 0.85); }
+        }
+
+        .made-by {
+            margin-top: 32px;
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            color: #9e8291;
+            text-transform: uppercase;
+            font-family: 'Poppins', sans-serif;
+        }
+        .made-by span {
+            color: #ff6b9d;
+            font-weight: 600;
+        }
+
+        /* =========================================
+           ২.৬ কার্টুন স্টোরি পেজ ও স্লো এনিমেশন
+        ========================================= */
+        .story-page {
+            padding: 0 !important;
+            overflow: hidden;
+            justify-content: space-between !important;
+        }
+
+        .story-top-text {
+            margin-top: 26px;
+            z-index: 15;
+            text-align: center;
+            padding: 0 15px;
+        }
+
+        .story-sub {
+            font-size: 0.78rem;
+            letter-spacing: 2.5px;
+            color: #d4b8c7;
+            margin-bottom: 8px;
+        }
+
+        .story-title {
+            font-family: 'Playfair Display', 'Hind Siliguri', serif;
+            font-size: 1.35rem;
+            color: #fff;
+            text-shadow: 0 0 15px rgba(255, 75, 139, 0.6);
+        }
+
+        .story-stage {
+            position: relative;
+            width: 100%;
+            max-width: 480px;
+            height: 76vh;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        /* অ্যানিমেটেড হার্ট গাছ */
+        .love-tree-svg {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            bottom: 45px;
+            left: 0;
+            z-index: 2;
+            overflow: visible;
+        }
+
+        .tree-branch {
+            stroke: #6e4756;
+            stroke-linecap: round;
+            fill: none;
+            stroke-dasharray: 400;
+            stroke-dashoffset: 400;
+            animation: growBranch 2.6s ease-out forwards;
+        }
+
+        .branch-d1 { animation-delay: 0.3s; }
+        .branch-d2 { animation-delay: 1.0s; }
+        .branch-d3 { animation-delay: 1.6s; }
+
+        @keyframes growBranch {
+            to { stroke-dashoffset: 0; }
+        }
+
+        .tree-bloom {
+            opacity: 0;
+            transform-box: fill-box;
+            transform-origin: center;
+            animation: bloomPop 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            filter: drop-shadow(0 0 6px rgba(255, 75, 139, 0.9));
+        }
+
+        @keyframes bloomPop {
+            0% { opacity: 0; transform: scale(0); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        #petal-layer {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 12;
+            overflow: hidden;
+        }
+
+        .falling-flower {
+            position: absolute;
+            top: -20px;
+            font-size: 1rem;
+            opacity: 0.9;
+            filter: drop-shadow(0 0 6px rgba(255, 105, 180, 0.8));
+            animation: flowerFall linear forwards;
+        }
+
+        @keyframes flowerFall {
+            0% { transform: translateY(0) rotate(0deg) translateX(0); opacity: 1; }
+            50% { transform: translateY(42vh) rotate(180deg) translateX(18px); }
+            100% { transform: translateY(82vh) rotate(360deg) translateX(-18px); opacity: 0; }
+        }
+
+        .story-ground {
+            position: absolute;
+            bottom: 0;
+            left: -10%;
+            width: 120%;
+            height: 55px;
+            background: linear-gradient(180deg, rgba(255, 75, 139, 0.18) 0%, rgba(18, 5, 14, 0.95) 100%);
+            border-top: 1px solid rgba(255, 75, 139, 0.35);
+            z-index: 4;
+        }
+
+        /* স্মুথ ও স্লো কার্টুন ক্যারেক্টার */
+        .cartoon-char {
+            position: absolute;
+            bottom: 48px;
+            width: 78px;
+            height: 122px;
+            z-index: 8;
+            transition: left 3.2s cubic-bezier(0.25, 0.8, 0.25, 1), right 3.2s cubic-bezier(0.25, 0.8, 0.25, 1), transform 1s ease, opacity 0.8s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #char-riyan { left: -110px; }
+        #char-rakib { right: -110px; }
+
+        /* হাঁটার স্লো বাউন্স এনিমেশন */
+        .walking .char-body-svg {
+            animation: walkBounce 0.65s infinite alternate ease-in-out;
+        }
+
+        @keyframes walkBounce {
+            0% { transform: translateY(0) rotate(-3deg); }
+            100% { transform: translateY(-7px) rotate(3deg); }
+        }
+
+        /* আনন্দ ও লাফানোর এনিমেশন */
+        .celebrating .char-body-svg {
+            animation: partyJump 0.6s infinite alternate ease-in-out;
+        }
+
+        @keyframes partyJump {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-15px) scale(1.06); }
+        }
+
+        /* মন খারাপ করে বসে থাকার এনিমেশন (Rakib Sad) */
+        .sad-sitting {
+            transform: translateY(15px) scale(0.95);
+        }
+        .sad-sitting .char-body-svg {
+            animation: sadSigh 1.8s infinite alternate ease-in-out;
+        }
+        @keyframes sadSigh {
+            0% { transform: rotate(-4deg) translateY(0); }
+            100% { transform: rotate(-7deg) translateY(3px); }
+        }
+
+        /* কার্টুনের নিচের নাম ও কথা বলার সময় হাইলাইট */
+        .char-tag {
+            font-size: 0.72rem;
+            font-weight: 600;
+            background: rgba(0, 0, 0, 0.72);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 2px 10px;
+            border-radius: 20px;
+            margin-top: 2px;
+            color: #e2e8f0;
+            white-space: nowrap;
+            transition: all 0.35s ease;
+        }
+
+        .char-tag.speaking-active {
+            background: linear-gradient(135deg, #FFD700, #ff8c00);
+            color: #000000;
+            border-color: #ffffff;
+            transform: scale(1.16);
+            box-shadow: 0 0 16px rgba(255, 215, 0, 0.9);
+        }
+
+        .hide-names .char-tag {
+            display: none !important;
+        }
+
+        /* স্পিচ বাবল */
+        .speech-bubble {
+            position: absolute;
+            bottom: 130px;
+            background: #ffffff;
+            color: #1b0914;
+            font-family: 'Poppins', 'Hind Siliguri', sans-serif;
+            font-weight: 600;
+            font-size: 0.82rem;
+            padding: 8px 14px;
+            border-radius: 16px;
+            white-space: nowrap;
+            box-shadow: 0 6px 20px rgba(255, 75, 139, 0.55);
+            opacity: 0;
+            transform: scale(0.6) translateY(10px);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+            z-index: 25;
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -7px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 7px 7px 0;
+            border-style: solid;
+            border-color: #ffffff transparent transparent transparent;
+        }
+
+        .speech-bubble.show {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        .speech-bubble.bday-highlight {
+            background: linear-gradient(135deg, #ff3d7f, #ff8c00);
+            color: #fff;
+            font-size: 0.88rem;
+            box-shadow: 0 0 25px rgba(255, 61, 127, 0.9);
+        }
+        .speech-bubble.bday-highlight::after {
+            border-color: #ff6242 transparent transparent transparent;
+        }
+
+        /* =========================================
+           ৩য় পেজ: কেক শপ
+        ========================================= */
+        .bakery-shop {
+            position: absolute;
+            bottom: 50px;
+            right: 12px;
+            width: 145px;
+            height: 165px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border: 2px solid #ff4b8b;
+            border-radius: 16px 16px 0 0;
+            box-shadow: 0 0 25px rgba(255, 75, 139, 0.35);
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .shop-awning {
+            width: 100%;
+            height: 26px;
+            background: repeating-linear-gradient(90deg, #ff3d7f, #ff3d7f 14px, #ffffff 14px, #ffffff 28px);
+            border-bottom: 2px solid #FFD700;
+        }
+
+        .shop-sign {
+            background: #1b0914;
+            color: #FFD700;
+            font-size: 0.68rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+            border: 1px solid #FFD700;
+            margin-top: 8px;
+            letter-spacing: 1px;
+        }
+
+        .shop-window {
+            width: 115px;
+            height: 75px;
+            background: rgba(0, 239, 255, 0.12);
+            border: 1.5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.3rem;
+        }
+
+        .carried-cake {
+            position: absolute;
+            top: 38px;
+            right: -14px;
+            font-size: 1.85rem;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.5s ease;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.9));
+            z-index: 15;
+        }
+        .carried-cake.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* =========================================
+           ৪র্থ পেজ: সুন্দর সাজানো, কেক কাটা, বোম ফোটা ও রাকিবের মন খারাপ
+        ========================================= */
+        .party-decor-banner {
+            position: absolute;
+            top: 10px;
+            width: 92%;
+            display: flex;
+            justify-content: space-around;
+            font-size: 1.25rem;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 1s ease;
+            z-index: 6;
+        }
+        .party-decor-banner.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cake-table-setup {
+            position: absolute;
+            bottom: 50px;
+            left: 54%;
+            transform: translateX(-50%) scale(0);
+            width: 115px;
+            height: 62px;
+            background: linear-gradient(180deg, #ff6b81, #c44569);
+            border-top: 5px solid #FFD700;
+            border-radius: 8px 8px 0 0;
+            z-index: 6;
+            transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            justify-content: center;
+        }
+        .cake-table-setup.show {
+            transform: translateX(-50%) scale(1);
+        }
+
+        .party-cake {
+            position: absolute;
+            top: -54px;
+            font-size: 3.1rem;
+            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
+        }
+
+        .cake-knife {
+            position: absolute;
+            top: -68px;
+            right: 12px;
+            font-size: 1.7rem;
+            opacity: 0;
+            transform: rotate(-35deg);
+            transition: all 0.5s ease;
+        }
+        .cake-knife.cutting {
+            opacity: 1;
+            animation: sliceCake 0.65s infinite alternate ease-in-out;
+        }
+        @keyframes sliceCake {
+            0% { transform: translateY(0) rotate(-35deg); }
+            100% { transform: translateY(18px) rotate(-15deg); }
+        }
+
+        .blindfold-band {
+            transition: opacity 0.6s ease;
+        }
+
+        .floating-slice {
+            position: absolute;
+            font-size: 1.3rem;
+            opacity: 0;
+            z-index: 30;
+            transition: all 1s ease-out;
+        }
+
+        /* =========================================
+           ৫ম পেজ: গিফট দেওয়া (স্লো এনিমেশন)
+        ========================================= */
+        .gift-item {
+            position: absolute;
+            top: 40px;
+            left: -12px;
+            font-size: 1.65rem;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.7s ease;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.9));
+            z-index: 16;
+        }
+        .gift-item.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .gift-pile {
+            position: absolute;
+            bottom: 46px;
+            left: 22%;
+            font-size: 1.5rem;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.8s ease;
+            z-index: 14;
+        }
+        .gift-pile.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* =========================================
+           ৬. বাকি পেজ ও বক্স ডিজাইন (সুন্দর এনিমেশন সহ)
+        ========================================= */
+        .page { display: none; width: 100%; min-height: 100vh; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; z-index: 10; padding: 20px; box-sizing: border-box; animation: pageFadeZoom 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
         .page.active { display: flex; }
-        @keyframes zoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        @keyframes pageFadeZoom { from { opacity: 0; transform: scale(0.92) translateY(15px); } to { opacity: 1; transform: scale(1) translateY(0); } }
 
         .box {
             background: var(--glass-bg);
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 20px;
+            border: 1px solid rgba(255, 75, 139, 0.3);
+            border-radius: 22px;
             padding: 30px 20px;
             width: 90%; max-width: 400px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            box-shadow: 0 12px 45px rgba(0, 0, 0, 0.65), inset 0 0 20px rgba(255, 75, 139, 0.1);
             margin: 10px auto;
             position: relative;
+            animation: cardFloat 4s infinite ease-in-out;
+        }
+
+        @keyframes cardFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
         }
 
         .name-badge {
             background: linear-gradient(135deg, #FFD700, #ff8c00);
             color: #000;
-            padding: 8px 20px;
+            padding: 8px 22px;
             border-radius: 50px;
             font-weight: bold;
             font-size: 0.95rem;
             display: inline-block;
             margin-bottom: 15px;
-            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+            box-shadow: 0 4px 18px rgba(255, 215, 0, 0.5);
             font-family: 'Poppins', sans-serif;
             letter-spacing: 1px;
         }
 
         .caption-box {
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.35);
             border-radius: 12px;
             padding: 15px;
             font-size: 1.1rem;
             color: #e0e0e0;
             min-height: 50px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.12);
         }
 
-        .envelope-area { perspective: 1000px; margin-top: 50px; cursor: pointer; }
-        .envelope { width: 280px; height: 180px; background: #ff4757; position: relative; border-radius: 0 0 10px 10px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); }
-        .flap { position: absolute; top: 0; left: 0; border-left: 140px solid transparent; border-right: 140px solid transparent; border-top: 100px solid #ff6b81; transform-origin: top; transition: 0.6s ease-in-out; z-index: 5; }
+        .envelope-area { perspective: 1000px; margin-top: 50px; cursor: pointer; animation: cardFloat 3s infinite ease-in-out; }
+        .envelope { width: 280px; height: 180px; background: #ff4757; position: relative; border-radius: 0 0 10px 10px; box-shadow: 0 15px 35px rgba(255, 71, 87, 0.45); }
+        .flap { position: absolute; top: 0; left: 0; border-left: 140px solid transparent; border-right: 140px solid transparent; border-top: 100px solid #ff6b81; transform-origin: top; transition: 0.7s ease-in-out; z-index: 5; }
         .pocket { position: absolute; bottom: 0; left: 0; border-left: 140px solid #ff4757; border-right: 140px solid #ff4757; border-top: 90px solid transparent; border-bottom: 90px solid #e84118; border-radius: 0 0 10px 10px; z-index: 4; }
-        .letter { position: absolute; bottom: 0; left: 15px; width: 250px; height: 160px; background: #fff; padding: 15px; color: #333; text-align: center; border-radius: 5px; z-index: 2; transition: 0.8s ease-in-out; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .letter { position: absolute; bottom: 0; left: 15px; width: 250px; height: 160px; background: #fff; padding: 15px; color: #333; text-align: center; border-radius: 5px; z-index: 2; transition: 0.9s ease-in-out; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .envelope.open .flap { transform: rotateX(180deg); z-index: 1; }
         .envelope.open .letter { bottom: 80px; z-index: 6; transform: translateY(-40px); }
 
-        #count-num { font-size: 7rem; font-family: 'Pacifico'; color: var(--secondary-glow); text-shadow: 0 0 30px var(--secondary-glow); }
-        .profile-img { width: 150px; height: 150px; border-radius: 50%; border: 5px solid var(--primary-glow); object-fit: cover; margin-bottom: 25px; box-shadow: 0 0 30px rgba(255, 215, 0, 0.4); animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        #count-num { font-size: 7.5rem; font-family: 'Pacifico'; color: var(--secondary-glow); text-shadow: 0 0 35px var(--secondary-glow); animation: pulse 1s infinite; }
+        .profile-img { width: 150px; height: 150px; border-radius: 50%; border: 5px solid var(--primary-glow); object-fit: cover; margin-bottom: 25px; box-shadow: 0 0 35px rgba(255, 215, 0, 0.55); animation: pulse 2.2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.06); } 100% { transform: scale(1); } }
         
-        .gallery-img { width: 100%; border-radius: 12px; border: 3px solid rgba(255,255,255,0.5); margin-bottom: 15px; object-fit: cover; height: 260px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .gallery-img { width: 100%; border-radius: 14px; border: 3px solid rgba(255, 215, 0, 0.55); margin-bottom: 15px; object-fit: cover; height: 260px; box-shadow: 0 8px 25px rgba(0,0,0,0.45); transition: opacity 0.5s ease, transform 0.5s ease; }
         
-        textarea { width: 100%; background: rgba(255,255,255,0.9); border: none; padding: 12px; border-radius: 8px; font-family: 'Hind Siliguri'; margin-bottom: 15px; outline: none; font-size: 1rem; }
-        .btn { background: linear-gradient(135deg, #ff00de, #00efff); border: none; padding: 12px 30px; color: #fff; font-weight: bold; border-radius: 50px; cursor: pointer; margin-top: 10px; box-shadow: 0 5px 20px rgba(0, 239, 255, 0.4); transition: 0.3s; }
-        .btn:hover { transform: scale(1.05); }
+        textarea { width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.92); border: none; padding: 14px; border-radius: 12px; font-family: 'Hind Siliguri'; margin-bottom: 15px; outline: none; font-size: 1rem; color: #111; }
+        .btn { background: linear-gradient(135deg, #ff00de, #00efff); border: none; padding: 13px 34px; color: #fff; font-weight: bold; border-radius: 50px; cursor: pointer; margin-top: 10px; box-shadow: 0 5px 25px rgba(0, 239, 255, 0.45); transition: 0.3s; font-size: 1rem; }
+        .btn:hover { transform: scale(1.06); box-shadow: 0 8px 30px rgba(255, 0, 222, 0.6); }
     </style>
 </head>
 <body onclick="enableMusic()"> 
@@ -143,32 +702,371 @@
     <audio id="bg-music" loop><source src="" type="audio/mp3"></audio>
     <div class="bg-container" id="bg-effects"></div>
 
-    <div class="page active" id="page-0">
-        <div class="box">
-            <h2 style="color: #ffdd00; font-size: 2rem;">Wait A Minute! ✋</h2>
-            <br>
-            <p style="font-size: 1.3rem; font-weight: bold; color: #fff;">
-                "আপনি বলে আজকে ডাউনলোড হইছেন...?? <br>
-                কেমনে কি ভাই? 🤔"
-            </p>
-            <br>
-            <p style="color: #ccc;">যাই হোক...</p>
-            <h2 style="font-size: 1.8rem; margin-top: 15px;">Happy Birthday To You! 🎂</h2>
+    <!-- ১ম পেজ: ছবির মতো ইন্ট্রো পেজ -->
+    <div class="page active" id="page-intro">
+        <div class="intro-wrapper">
+            <div class="top-heart">💗</div>
+            <div class="intro-sub">A LITTLE SURPRISE FOR YOU</div>
+            <h1 class="intro-hey">Hey</h1>
+            
+            <div class="divider-row">
+                <div class="pink-line"></div>
+                <div class="side-heart">❤️</div>
+            </div>
+
+            <p class="intro-desc">I made something special just for you.</p>
+
+            <button class="surprise-btn" onclick="startSurprise()">
+                Open Your Surprise ❤️
+            </button>
+
+            <div class="made-by">Made with ❤️ by <span>NET JODDHA</span></div>
         </div>
     </div>
 
-    <div class="page" id="page-1">
-        <div class="box">
-            <h1>THIS IS FOR YOU <br><span class="dynamic-name" style="color: #00efff;"></span></h1>
-            <p style="margin-top: 10px;">আজকের দিনটা স্পেশাল, তাই আয়োজনটাও স্পেশাল!</p>
-            <p style="font-size: 0.9rem; opacity: 0.7; margin-top: 25px; font-style: italic;">(Please Wait...)</p>
+    <!-- ২য় পেজ: গাছ, কার্টুন রাকিব-রিয়ান ও ফুল পড়া এনিমেশন -->
+    <div class="page story-page" id="page-tree-story">
+        <div class="story-top-text">
+            <div class="story-sub">SOMETHING BEAUTIFUL IS GROWING FOR YOU... ✨</div>
+            <div class="story-title">My dearest, Happy Birthday! 🎂</div>
+        </div>
+
+        <div class="story-stage">
+            <div id="petal-layer"></div>
+
+            <svg class="love-tree-svg" viewBox="0 0 360 440" preserveAspectRatio="xMidYMax meet">
+                <path class="tree-branch" stroke-width="11" d="M180,435 L180,260" />
+                <path class="tree-branch branch-d1" stroke-width="8" d="M180,260 L110,165" />
+                <path class="tree-branch branch-d1" stroke-width="8" d="M180,260 L250,165" />
+                <path class="tree-branch branch-d2" stroke-width="5.5" d="M110,165 L65,95" />
+                <path class="tree-branch branch-d2" stroke-width="5.5" d="M110,165 L145,85" />
+                <path class="tree-branch branch-d2" stroke-width="5.5" d="M250,165 L215,85" />
+                <path class="tree-branch branch-d2" stroke-width="5.5" d="M250,165 L295,95" />
+                <path class="tree-branch branch-d3" stroke-width="3.5" d="M65,95 L35,45" />
+                <path class="tree-branch branch-d3" stroke-width="3.5" d="M65,95 L90,40" />
+                <path class="tree-branch branch-d3" stroke-width="3.5" d="M145,85 L125,35" />
+                <path class="tree-branch branch-d3" stroke-width="3.5" d="M145,85 L170,40" />
+                <path class="tree-branch branch-d3" stroke-width="3.5" d="M215,85 L195,40" />
+                <path class="tree-branch branch-d3" stroke-width="3.5" d="M215,85 L240,35" />
+                <path class="tree-branch branch-d3" stroke-width="3.5" d="M295,95 L270,40" />
+                <path class="tree-branch branch-d3" stroke-width="3.5" d="M295,95 L325,45" />
+
+                <g id="tree-blossoms">
+                    <text x="35" y="45" font-size="18" text-anchor="middle" class="tree-bloom" style="animation-delay:2.1s">💗</text>
+                    <text x="90" y="40" font-size="16" text-anchor="middle" class="tree-bloom" style="animation-delay:2.2s">🌸</text>
+                    <text x="125" y="35" font-size="18" text-anchor="middle" class="tree-bloom" style="animation-delay:2.3s">💖</text>
+                    <text x="170" y="40" font-size="17" text-anchor="middle" class="tree-bloom" style="animation-delay:2.4s">💗</text>
+                    <text x="195" y="40" font-size="16" text-anchor="middle" class="tree-bloom" style="animation-delay:2.3s">🌸</text>
+                    <text x="240" y="35" font-size="18" text-anchor="middle" class="tree-bloom" style="animation-delay:2.2s">💖</text>
+                    <text x="270" y="40" font-size="17" text-anchor="middle" class="tree-bloom" style="animation-delay:2.5s">💗</text>
+                    <text x="325" y="45" font-size="18" text-anchor="middle" class="tree-bloom" style="animation-delay:2.4s">🌸</text>
+                    <text x="65" y="95" font-size="16" text-anchor="middle" class="tree-bloom" style="animation-delay:1.8s">💗</text>
+                    <text x="145" y="85" font-size="16" text-anchor="middle" class="tree-bloom" style="animation-delay:1.9s">🌸</text>
+                    <text x="215" y="85" font-size="16" text-anchor="middle" class="tree-bloom" style="animation-delay:2.0s">💖</text>
+                    <text x="295" y="95" font-size="16" text-anchor="middle" class="tree-bloom" style="animation-delay:1.9s">💗</text>
+                    <text x="110" y="165" font-size="15" text-anchor="middle" class="tree-bloom" style="animation-delay:1.5s">💖</text>
+                    <text x="250" y="165" font-size="15" text-anchor="middle" class="tree-bloom" style="animation-delay:1.6s">🌸</text>
+                    <text x="180" y="210" font-size="15" text-anchor="middle" class="tree-bloom" style="animation-delay:1.7s">💗</text>
+                    <text x="180" y="410" font-size="14" text-anchor="middle" class="tree-bloom" style="animation-delay:0.5s">💗</text>
+                </g>
+            </svg>
+
+            <div class="cartoon-char" id="char-riyan">
+                <div class="speech-bubble" id="bubble-riyan">Hi Rakib 👋</div>
+                <svg class="char-body-svg" width="75" height="95" viewBox="0 0 80 100">
+                    <circle cx="40" cy="24" r="16" fill="#ffdbac"/>
+                    <path d="M24,22 Q26,6 40,6 Q54,6 56,22 Q50,14 40,15 Q30,14 24,22 Z" fill="#1e272e"/>
+                    <circle cx="35" cy="23" r="2" fill="#111"/>
+                    <circle cx="45" cy="23" r="2" fill="#111"/>
+                    <path d="M35,30 Q40,35 45,30" stroke="#c0392b" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <rect x="26" y="42" width="28" height="32" rx="8" fill="#00a8ff"/>
+                    <line x1="26" y1="46" x2="15" y2="66" stroke="#ffdbac" stroke-width="5" stroke-linecap="round"/>
+                    <line x1="54" y1="46" x2="65" y2="66" stroke="#ffdbac" stroke-width="5" stroke-linecap="round"/>
+                    <line x1="33" y1="74" x2="31" y2="94" stroke="#2f3640" stroke-width="6" stroke-linecap="round"/>
+                    <line x1="47" y1="74" x2="49" y2="94" stroke="#2f3640" stroke-width="6" stroke-linecap="round"/>
+                </svg>
+                <div class="char-tag name-riyan" id="tag-tree-riyan">Riyan</div>
+            </div>
+
+            <div class="cartoon-char" id="char-rakib">
+                <div class="speech-bubble" id="bubble-rakib">Hlw Riyan 😊</div>
+                <svg class="char-body-svg" width="75" height="95" viewBox="0 0 80 100">
+                    <polygon points="40,0 29,14 51,14" fill="#FFD700"/>
+                    <circle cx="40" cy="0" r="2.5" fill="#ff3e88"/>
+                    <circle cx="40" cy="26" r="16" fill="#f1c27d"/>
+                    <path d="M24,24 Q28,11 40,11 Q52,11 56,24 Q48,17 40,17 Q32,17 24,24 Z" fill="#2c3e50"/>
+                    <circle cx="35" cy="25" r="2" fill="#111"/>
+                    <circle cx="45" cy="25" r="2" fill="#111"/>
+                    <path d="M35,32 Q40,37 45,32" stroke="#c0392b" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <rect x="26" y="44" width="28" height="32" rx="8" fill="#ff3e88"/>
+                    <line x1="26" y1="48" x2="15" y2="68" stroke="#f1c27d" stroke-width="5" stroke-linecap="round"/>
+                    <line x1="54" y1="48" x2="65" y2="68" stroke="#f1c27d" stroke-width="5" stroke-linecap="round"/>
+                    <line x1="33" y1="76" x2="31" y2="95" stroke="#1e272e" stroke-width="6" stroke-linecap="round"/>
+                    <line x1="47" y1="76" x2="49" y2="95" stroke="#1e272e" stroke-width="6" stroke-linecap="round"/>
+                </svg>
+                <div class="char-tag name-rakib" id="tag-tree-rakib">Rakib</div>
+            </div>
+
+            <div class="story-ground"></div>
         </div>
     </div>
 
+    <!-- ৩য় পেজ: রাকিব ও বন্ধুরা মিলে দোকান থেকে কেক নিয়ে আসবে -->
+    <div class="page story-page" id="page-cake-shop">
+        <div class="story-top-text">
+            <div class="story-sub">GETTING THE SPECIAL CAKE 🎂</div>
+            <div class="story-title" id="shop-status-text">রাকিব ও বন্ধুরা কেকের দোকানে যাচ্ছে...</div>
+        </div>
+
+        <div class="story-stage">
+            <div class="bakery-shop">
+                <div class="shop-awning"></div>
+                <div class="shop-sign">CSB BAKERY 🍰</div>
+                <div class="shop-window">
+                    <span id="shop-display-cake">🎂</span>
+                </div>
+            </div>
+
+            <div class="cartoon-char" id="shop-rakib" style="left: -90px;">
+                <div class="speech-bubble" id="bubble-shop-rakib">চল, সেরা কেকটা নিই! 🎂</div>
+                <div class="carried-cake" id="rakib-cake">🎂</div>
+                <svg class="char-body-svg" width="70" height="90" viewBox="0 0 80 100">
+                    <polygon points="40,0 29,14 51,14" fill="#FFD700"/>
+                    <circle cx="40" cy="26" r="16" fill="#f1c27d"/>
+                    <path d="M24,24 Q28,11 40,11 Q52,11 56,24 Q48,17 40,17 Q32,17 24,24 Z" fill="#2c3e50"/>
+                    <circle cx="35" cy="25" r="2" fill="#111"/><circle cx="45" cy="25" r="2" fill="#111"/>
+                    <path d="M35,32 Q40,37 45,32" stroke="#c0392b" stroke-width="2" fill="none"/>
+                    <rect x="26" y="44" width="28" height="32" rx="8" fill="#ff3e88"/>
+                    <line x1="26" y1="48" x2="15" y2="68" stroke="#f1c27d" stroke-width="5" stroke-linecap="round"/>
+                    <line x1="54" y1="48" x2="65" y2="68" stroke="#f1c27d" stroke-width="5" stroke-linecap="round"/>
+                    <line x1="33" y1="76" x2="31" y2="95" stroke="#1e272e" stroke-width="6" stroke-linecap="round"/>
+                    <line x1="47" y1="76" x2="49" y2="95" stroke="#1e272e" stroke-width="6" stroke-linecap="round"/>
+                </svg>
+                <div class="char-tag name-rakib" id="tag-shop-rakib">Rakib</div>
+            </div>
+
+            <div class="cartoon-char" id="shop-friend1" style="left: -155px;">
+                <svg class="char-body-svg" width="66" height="86" viewBox="0 0 80 100">
+                    <circle cx="40" cy="24" r="15" fill="#ffdbac"/>
+                    <path d="M25,22 Q40,8 55,22 Z" fill="#2d3436"/>
+                    <circle cx="35" cy="23" r="2" fill="#111"/><circle cx="45" cy="23" r="2" fill="#111"/>
+                    <path d="M35,30 Q40,34 45,30" stroke="#c0392b" stroke-width="2" fill="none"/>
+                    <rect x="27" y="42" width="26" height="32" rx="8" fill="#00b894"/>
+                    <line x1="34" y1="74" x2="32" y2="94" stroke="#2f3640" stroke-width="6" stroke-linecap="round"/>
+                    <line x1="46" y1="74" x2="48" y2="94" stroke="#2f3640" stroke-width="6" stroke-linecap="round"/>
+                </svg>
+                <div class="char-tag name-f1">Siam</div>
+            </div>
+
+            <div class="cartoon-char" id="shop-friend2" style="left: -215px;">
+                <svg class="char-body-svg" width="66" height="86" viewBox="0 0 80 100">
+                    <circle cx="40" cy="24" r="15" fill="#f1c27d"/>
+                    <path d="M25,22 Q40,6 55,22 Z" fill="#1e272e"/>
+                    <circle cx="35" cy="23" r="2" fill="#111"/><circle cx="45" cy="23" r="2" fill="#111"/>
+                    <path d="M35,30 Q40,34 45,30" stroke="#c0392b" stroke-width="2" fill="none"/>
+                    <rect x="27" y="42" width="26" height="32" rx="8" fill="#a29bfe"/>
+                    <line x1="34" y1="74" x2="32" y2="94" stroke="#2f3640" stroke-width="6" stroke-linecap="round"/>
+                    <line x1="46" y1="74" x2="48" y2="94" stroke="#2f3640" stroke-width="6" stroke-linecap="round"/>
+                </svg>
+                <div class="char-tag name-f2">Arif</div>
+            </div>
+
+            <div class="cartoon-char" id="shop-friend3" style="left: -275px;">
+                <svg class="char-body-svg" width="66" height="86" viewBox="0 0 80 100">
+                    <circle cx="40" cy="24" r="15" fill="#ffdbac"/>
+                    <path d="M25,22 Q40,9 55,22 Z" fill="#3d3d3d"/>
+                    <circle cx="35" cy="23" r="2" fill="#111"/><circle cx="45" cy="23" r="2" fill="#111"/>
+                    <path d="M35,30 Q40,34 45,30" stroke="#c0392b" stroke-width="2" fill="none"/>
+                    <rect x="27" y="42" width="26" height="32" rx="8" fill="#fdcb6e"/>
+                    <line x1="34" y1="74" x2="32" y2="94" stroke="#2f3640" stroke-width="6" stroke-linecap="round"/>
+                    <line x1="46" y1="74" x2="48" y2="94" stroke="#2f3640" stroke-width="6" stroke-linecap="round"/>
+                </svg>
+                <div class="char-tag name-f3">Friends</div>
+            </div>
+
+            <div class="story-ground"></div>
+        </div>
+    </div>
+
+    <!-- ৪র্থ পেজ: সুন্দর সাজানো, কেক কাটা, চারদিকে বোম ফোটা ও রাকিবের মন খারাপ করে বসে থাকা -->
+    <div class="page story-page" id="page-cake-party">
+        <div class="story-top-text">
+            <div class="story-sub">SURPRISE CELEBRATION 🎉</div>
+            <div class="story-title" id="party-status-text">সুন্দর করে কেক ও পার্টি সাজানো হচ্ছে... ✨</div>
+        </div>
+
+        <div class="story-stage">
+            <div class="party-decor-banner" id="party-banner">
+                <span>🎈</span><span>🎊</span><span>✨ HAPPY BIRTHDAY ✨</span><span>🎊</span><span>🎈</span>
+            </div>
+
+            <div class="cake-table-setup" id="party-table">
+                <div class="party-cake" id="party-cake-icon">🎂</div>
+                <div class="cake-knife" id="party-knife">🔪</div>
+            </div>
+
+            <!-- রিয়ান -->
+            <div class="cartoon-char" id="party-riyan" style="left: -100px;">
+                <div class="speech-bubble" id="bubble-party-riyan">ওয়াও! অনেক সুন্দর! 😍</div>
+                <svg class="char-body-svg" width="72" height="92" viewBox="0 0 80 100">
+                    <circle cx="40" cy="24" r="16" fill="#ffdbac"/>
+                    <path d="M24,22 Q26,6 40,6 Q54,6 56,22 Q50,14 40,15 Q30,14 24,22 Z" fill="#1e272e"/>
+                    <circle cx="35" cy="23" r="2" fill="#111"/>
+                    <circle cx="45" cy="23" r="2" fill="#111"/>
+                    <rect id="riyan-blindfold" class="blindfold-band" x="24" y="19" width="32" height="8" rx="3" fill="#111111" stroke="#FFD700" stroke-width="1"/>
+                    <path d="M35,31 Q40,36 45,31" stroke="#c0392b" stroke-width="2" fill="none"/>
+                    <rect x="26" y="42" width="28" height="32" rx="8" fill="#00a8ff"/>
+                    <line x1="26" y1="46" x2="15" y2="66" stroke="#ffdbac" stroke-width="5" stroke-linecap="round"/>
+                    <line x1="54" y1="46" x2="65" y2="66" stroke="#ffdbac" stroke-width="5" stroke-linecap="round"/>
+                    <line x1="33" y1="74" x2="31" y2="94" stroke="#2f3640" stroke-width="6" stroke-linecap="round"/>
+                    <line x1="47" y1="74" x2="49" y2="94" stroke="#2f3640" stroke-width="6" stroke-linecap="round"/>
+                </svg>
+                <div class="char-tag name-riyan" id="tag-party-riyan">Riyan</div>
+            </div>
+
+            <!-- রাকিব (কেক কাটার পর মন খারাপ করে একপাশে গিয়ে বসে থাকবে) -->
+            <div class="cartoon-char" id="party-rakib" style="left: -170px;">
+                <div class="speech-bubble" id="bubble-party-rakib">চোখ খোলো রিয়ান! 🎉</div>
+                <svg class="char-body-svg" width="72" height="92" viewBox="0 0 80 100">
+                    <polygon points="40,0 29,14 51,14" fill="#FFD700"/>
+                    <circle cx="40" cy="26" r="16" fill="#f1c27d"/>
+                    <path d="M24,24 Q28,11 40,11 Q52,11 56,24 Q48,17 40,17 Q32,17 24,24 Z" fill="#2c3e50"/>
+                    <circle cx="35" cy="25" r="2" fill="#111"/><circle cx="45" cy="25" r="2" fill="#111"/>
+                    <!-- খুশি মুখ ও মন খারাপ মুখ -->
+                    <path id="rakib-happy-mouth" d="M35,32 Q40,37 45,32" stroke="#c0392b" stroke-width="2" fill="none"/>
+                    <path id="rakib-sad-mouth" d="M35,36 Q40,30 45,36" stroke="#c0392b" stroke-width="2" fill="none" style="display:none;"/>
+                    <rect x="26" y="44" width="28" height="32" rx="8" fill="#ff3e88"/>
+                    <line x1="26" y1="48" x2="15" y2="68" stroke="#f1c27d" stroke-width="5" stroke-linecap="round"/>
+                    <line x1="54" y1="48" x2="65" y2="68" stroke="#f1c27d" stroke-width="5" stroke-linecap="round"/>
+                    <line x1="33" y1="76" x2="31" y2="95" stroke="#1e272e" stroke-width="6" stroke-linecap="round"/>
+                    <line x1="47" y1="76" x2="49" y2="95" stroke="#1e272e" stroke-width="6" stroke-linecap="round"/>
+                </svg>
+                <div class="char-tag name-rakib" id="tag-party-rakib">Rakib</div>
+            </div>
+
+            <!-- ডান পাশের বন্ধুরা -->
+            <div class="cartoon-char" id="party-friend1" style="right: -100px;">
+                <div class="speech-bubble" id="bubble-party-f1">Happy Birthday! 🥳</div>
+                <svg class="char-body-svg" width="68" height="88" viewBox="0 0 80 100">
+                    <circle cx="40" cy="24" r="15" fill="#ffdbac"/>
+                    <path d="M25,22 Q40,8 55,22 Z" fill="#2d3436"/>
+                    <circle cx="35" cy="23" r="2" fill="#111"/><circle cx="45" cy="23" r="2" fill="#111"/>
+                    <path d="M35,30 Q40,34 45,30" stroke="#c0392b" stroke-width="2" fill="none"/>
+                    <rect x="27" y="42" width="26" height="32" rx="8" fill="#00b894"/>
+                    <line x1="34" y1="74" x2="32" y2="94" stroke="#2f3640" stroke-width="6" stroke-linecap="round"/>
+                    <line x1="46" y1="74" x2="48" y2="94" stroke="#2f3640" stroke-width="6" stroke-linecap="round"/>
+                </svg>
+                <div class="char-tag name-f1" id="tag-party-f1">Siam</div>
+            </div>
+
+            <div class="cartoon-char" id="party-friend2" style="right: -165px;">
+                <svg class="char-body-svg" width="68" height="88" viewBox="0 0 80 100">
+                    <circle cx="40" cy="24" r="15" fill="#f1c27d"/>
+                    <path d="M25,22 Q40,6 55,22 Z" fill="#1e272e"/>
+                    <circle cx="35" cy="23" r="2" fill="#111"/><circle cx="45" cy="23" r="2" fill="#111"/>
+                    <path d="M35,30 Q40,34 45,30" stroke="#c0392b" stroke-width="2" fill="none"/>
+                    <rect x="27" y="42" width="26" height="32" rx="8" fill="#a29bfe"/>
+                    <line x1="34" y1="74" x2="32" y2="94" stroke="#2f3640" stroke-width="6" stroke-linecap="round"/>
+                    <line x1="46" y1="74" x2="48" y2="94" stroke="#2f3640" stroke-width="6" stroke-linecap="round"/>
+                </svg>
+                <div class="char-tag name-f2">Arif</div>
+            </div>
+
+            <div class="floating-slice" id="cake-slice-1" style="bottom: 135px; left: 50%;">🍰</div>
+            <div class="floating-slice" id="cake-slice-2" style="bottom: 135px; left: 54%;">🍰</div>
+
+            <div class="story-ground"></div>
+        </div>
+    </div>
+
+    <!-- ৫ম পেজ: সকলে মিলে একপাশে বসে থাকা রাকিবকে সুন্দর সুন্দর গিফট দেবে (Slow Animation) -->
+    <div class="page story-page" id="page-gifts">
+        <div class="story-top-text">
+            <div class="story-sub">SPECIAL GIFTS FOR YOU 🎁</div>
+            <div class="story-title" id="gift-status-text">মন খারাপ করো না রাকিব, সবার পক্ষ থেকে গিফট! 💝</div>
+        </div>
+
+        <div class="story-stage">
+            <!-- বাম পাশে বসে থাকা রাকিব -->
+            <div class="cartoon-char sad-sitting" id="gift-rakib" style="left: 10%;">
+                <div class="speech-bubble" id="bubble-gift-rakib">আরে! এগুলো আমার জন্য? 😍❤️</div>
+                <svg class="char-body-svg" width="74" height="94" viewBox="0 0 80 100">
+                    <polygon points="40,0 29,14 51,14" fill="#FFD700"/>
+                    <circle cx="40" cy="26" r="16" fill="#f1c27d"/>
+                    <path d="M24,24 Q28,11 40,11 Q52,11 56,24 Q48,17 40,17 Q32,17 24,24 Z" fill="#2c3e50"/>
+                    <circle cx="35" cy="25" r="2" fill="#111"/><circle cx="45" cy="25" r="2" fill="#111"/>
+                    <path id="gift-rakib-sad" d="M35,36 Q40,30 45,36" stroke="#c0392b" stroke-width="2" fill="none"/>
+                    <path id="gift-rakib-happy" d="M34,31 Q40,38 46,31" stroke="#c0392b" stroke-width="2.2" fill="none" style="display:none;"/>
+                    <rect x="26" y="44" width="28" height="32" rx="8" fill="#ff3e88"/>
+                    <line x1="26" y1="48" x2="15" y2="68" stroke="#f1c27d" stroke-width="5" stroke-linecap="round"/>
+                    <line x1="54" y1="48" x2="65" y2="68" stroke="#f1c27d" stroke-width="5" stroke-linecap="round"/>
+                    <line x1="33" y1="76" x2="31" y2="95" stroke="#1e272e" stroke-width="6" stroke-linecap="round"/>
+                    <line x1="47" y1="76" x2="49" y2="95" stroke="#1e272e" stroke-width="6" stroke-linecap="round"/>
+                </svg>
+                <div class="char-tag name-rakib" id="tag-gift-rakib">Rakib</div>
+            </div>
+
+            <!-- জমে থাকা গিফট বক্স -->
+            <div class="gift-pile" id="rakib-gift-pile">🎁 💐 🍫 ⌚</div>
+
+            <!-- ডান পাশ থেকে গিফট নিয়ে আসা রিয়ান -->
+            <div class="cartoon-char" id="gift-riyan" style="right: -100px;">
+                <div class="speech-bubble" id="bubble-gift-riyan">এই নাও তোমার স্পেশাল গিফট! 🎁</div>
+                <div class="gift-item show" id="g-box-1">🎁</div>
+                <svg class="char-body-svg" width="70" height="90" viewBox="0 0 80 100">
+                    <circle cx="40" cy="24" r="16" fill="#ffdbac"/>
+                    <path d="M24,22 Q26,6 40,6 Q54,6 56,22 Q50,14 40,15 Q30,14 24,22 Z" fill="#1e272e"/>
+                    <circle cx="35" cy="23" r="2" fill="#111"/><circle cx="45" cy="23" r="2" fill="#111"/>
+                    <path d="M35,30 Q40,35 45,30" stroke="#c0392b" stroke-width="2" fill="none"/>
+                    <rect x="26" y="42" width="28" height="32" rx="8" fill="#00a8ff"/>
+                    <line x1="33" y1="74" x2="31" y2="94" stroke="#2f3640" stroke-width="6" stroke-linecap="round"/>
+                    <line x1="47" y1="74" x2="49" y2="94" stroke="#2f3640" stroke-width="6" stroke-linecap="round"/>
+                </svg>
+                <div class="char-tag name-riyan" id="tag-gift-riyan">Riyan</div>
+            </div>
+
+            <!-- গিফট নিয়ে আসা সিয়াম -->
+            <div class="cartoon-char" id="gift-f1" style="right: -170px;">
+                <div class="speech-bubble" id="bubble-gift-f1">আমার পক্ষ থেকে ফুল ও গিফট! 💐</div>
+                <div class="gift-item show" id="g-box-2">💐</div>
+                <svg class="char-body-svg" width="68" height="88" viewBox="0 0 80 100">
+                    <circle cx="40" cy="24" r="15" fill="#ffdbac"/>
+                    <path d="M25,22 Q40,8 55,22 Z" fill="#2d3436"/>
+                    <circle cx="35" cy="23" r="2" fill="#111"/><circle cx="45" cy="23" r="2" fill="#111"/>
+                    <path d="M35,30 Q40,34 45,30" stroke="#c0392b" stroke-width="2" fill="none"/>
+                    <rect x="27" y="42" width="26" height="32" rx="8" fill="#00b894"/>
+                    <line x1="34" y1="74" x2="32" y2="94" stroke="#2f3640" stroke-width="6" stroke-linecap="round"/>
+                    <line x1="46" y1="74" x2="48" y2="94" stroke="#2f3640" stroke-width="6" stroke-linecap="round"/>
+                </svg>
+                <div class="char-tag name-f1" id="tag-gift-f1">Siam</div>
+            </div>
+
+            <!-- গিফট নিয়ে আসা আরিফ -->
+            <div class="cartoon-char" id="gift-f2" style="right: -240px;">
+                <div class="speech-bubble" id="bubble-gift-f2">সবাই মিলে অনেক আনন্দ হবে! 🍫</div>
+                <div class="gift-item show" id="g-box-3">🍫</div>
+                <svg class="char-body-svg" width="68" height="88" viewBox="0 0 80 100">
+                    <circle cx="40" cy="24" r="15" fill="#f1c27d"/>
+                    <path d="M25,22 Q40,6 55,22 Z" fill="#1e272e"/>
+                    <circle cx="35" cy="23" r="2" fill="#111"/><circle cx="45" cy="23" r="2" fill="#111"/>
+                    <path d="M35,30 Q40,34 45,30" stroke="#c0392b" stroke-width="2" fill="none"/>
+                    <rect x="27" y="42" width="26" height="32" rx="8" fill="#a29bfe"/>
+                    <line x1="34" y1="74" x2="32" y2="94" stroke="#2f3640" stroke-width="6" stroke-linecap="round"/>
+                    <line x1="46" y1="74" x2="48" y2="94" stroke="#2f3640" stroke-width="6" stroke-linecap="round"/>
+                </svg>
+                <div class="char-tag name-f2" id="tag-gift-f2">Arif</div>
+            </div>
+
+            <div class="story-ground"></div>
+        </div>
+    </div>
+
+    <!-- ৬ষ্ঠ পেজ: কাউন্টডাউন ("আপনি বলে আজকে ডাউনলোড হইছেন" পেজ কেটে দেওয়া হয়েছে) -->
     <div class="page" id="page-countdown">
         <div id="count-num">3</div>
     </div>
 
+    <!-- ৭ম পেজ: খাম -->
     <div class="page" id="page-2">
         <h2 style="margin-bottom: 40px;">আপনার জন্য একটি চিঠি 💌</h2>
         <div class="envelope-area" onclick="openEnvelope()">
@@ -185,20 +1083,18 @@
         <p style="margin-top: 100px; opacity: 0.7;">(চিঠিটি পড়ার জন্য খামটি খুলুন)</p>
     </div>
 
+    <!-- ৮ম পেজ: গ্যালারি -->
     <div class="page" id="page-gallery">
         <div class="box">
             <img src="" id="gallery-img" class="gallery-img">
-            
-            <div class="name-badge">
-                CSB CEO - BIJOY VAI
-            </div>
-
+            <div class="name-badge" id="gallery-badge">CSB CEO - BIJOY VAI</div>
             <div class="caption-box">
                 <span id="gallery-caption"></span>
             </div>
         </div>
     </div>
 
+    <!-- ৯ম পেজ: টাইপিং মেসেজ -->
     <div class="page" id="page-3">
         <img src="" class="profile-img" id="main-profile-img">
         <div class="box">
@@ -207,36 +1103,50 @@
         </div>
     </div>
 
+    <!-- ১০ম পেজ: আপনার একটি মন্তব্য দিবেন -->
     <div class="page" id="page-4">
         <div class="box">
-            <h2>😄 টিট না দিলে বিয়ে হবে না!<br>কি টিট দিবেন? ⬇️</h2>
-            <textarea id="msgInput" rows="4" placeholder="আপনার মনের কথা লিখুন..."></textarea>
-            <button class="btn" onclick="sendToTelegram()">Send Message 🚀</button>
+            <h2 id="comment-heading" style="font-family: 'Hind Siliguri', sans-serif; font-size: 1.55rem; margin-bottom: 15px;">✍️ আপনার একটি মন্তব্য দিন ⬇️</h2>
+            <textarea id="msgInput" rows="4" placeholder="আপনার সুন্দর মন্তব্যটি এখানে লিখুন..."></textarea>
+            <button class="btn" onclick="sendToTelegram()">মন্তব্য পাঠান 🚀</button>
         </div>
         <div style="margin-top: 20px; font-size: 0.8rem; opacity: 0.6;">Power By Netjoddha 🇧🇩</div>
     </div>
 
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
     <script>
         // =================================================================
-        //                 👇👇 কনফিগারেশন 👇👇
+        //                 🔥 ফায়ারবেজ কনফিগারেশন
         // =================================================================
-        const config = {
-            name: "CSB CEO-BIJOY",
-            music: "song.mp3", 
+        const firebaseConfig = {
+            apiKey: "AIzaSyDe4831L2FaWQ011h_QPwSSPwtgC6KboJ8",
+            authDomain: "brother-shop-bd.firebaseapp.com",
+            databaseURL: "https://brother-shop-bd-default-rtdb.firebaseio.com",
+            projectId: "brother-shop-bd",
+            storageBucket: "brother-shop-bd.firebasestorage.app",
+            messagingSenderId: "1059753405731",
+            appId: "1:1059753405731:web:d2f95a76e0da3afb3e7096",
+            measurementId: "G-0WW1TX0FFC"
+        };
 
-            // ছবিসমূহ
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        // ডিফল্ট কনফিগারেশন (এডমিন প্যানেল demo.html থেকে সব নিয়ন্ত্রণ করা যাবে)
+        let config = {
+            pageTitle: "Happy Birthday Bijoy Vai!",
+            name: "CSB CEO-BIJOY",
+            badgeName: "CSB CEO - BIJOY VAI",
+            music: "song.mp3", 
             profilePic: "https://d.top4top.io/p_365078o2b0.jpg",
             gallery1: "https://i.top4top.io/p_3650n2bbj0.png",
             gallery2: "https://k.top4top.io/p_3650xejs01.jpg",
-
-            // গ্যালারি ক্যাপশন
             cap1: "তোমার হাসিমুখ! 😊",
             cap2: "স্মৃতিময় মুহূর্তগুলো... 📸",
-
-            // টাইটেল (শেষের মেসেজ)
             titleMsg: "🎉 Happy Birthday CSB CEO – Bijoy Vai 🎉",
-            
-            // মেইন বডি মেসেজ
             bodyMsg: `আজ আপনার বিশেষ দিন।
 আপনার মতো একজন মানুষকে নেতা হিসেবে পাওয়াটা সত্যিই সৌভাগ্যের।
 আপনি যেভাবে আমাদের সবার প্রতিনিধি হয়ে পথ দেখাচ্ছেন—
@@ -251,205 +1161,321 @@
 
 ✨ শুভ জন্মদিন, Bijoy Vai! ✨
 — CSB Family 💙`,
-
-            // টেলিগ্রাম বট
+            // কার্টুন ও গল্পের এডমিন সেটিংস
+            showCartoonNames: "yes",
+            charRakib: "Rakib",
+            charRiyan: "Riyan",
+            charFriend1: "Siam",
+            charFriend2: "Arif",
+            charFriend3: "Friends",
+            dlgRiyanHi: "Hi Rakib 👋",
+            dlgRakibHlw: "Hlw Riyan 😊",
+            dlgRakibBday: "Happy birthday Riyan! 🎂🎉",
+            commentHeading: "✍️ আপনার একটি মন্তব্য দিন ⬇️",
             botToken: "8545704761:AAGpF-HdYFGPiwXuu9tz_r8xU_bk2FFClxo", 
             chatId: "8286027092"
         };
 
-        // =================================================================
-        //                 🚀 লজিক এবং এনিমেশন
-        // =================================================================
-        
-        document.addEventListener("DOMContentLoaded", () => {
-            // ডাটা লোড
+        function applyConfigData() {
+            document.title = config.pageTitle || ("Happy Birthday " + config.name);
             document.querySelectorAll('.dynamic-name').forEach(e => e.innerText = config.name);
-            document.getElementById('bg-music').querySelector('source').src = config.music;
-            document.getElementById('bg-music').load();
-            document.getElementById('main-profile-img').src = config.profilePic;
-            
-            // ব্যাকগ্রাউন্ড ইফেক্ট চালু
-            startBackgroundEffects();
+            document.getElementById('gallery-badge').innerText = config.badgeName || config.name;
+            document.getElementById('comment-heading').innerText = config.commentHeading || "✍️ আপনার একটি মন্তব্য দিন ⬇️";
 
-            // টাইমিং লজিক
-            setTimeout(() => {
-                showPage('page-1');
-                setTimeout(() => {
-                    startCountdown();
-                }, 4000); 
-            }, 4000); 
+            // কার্টুনের নাম দেখানো বা লুকানো (এডমিন থেকে কন্ট্রোল)
+            if (config.showCartoonNames === "no") {
+                document.body.classList.add('hide-names');
+            } else {
+                document.body.classList.remove('hide-names');
+            }
+
+            // কার্টুনগুলোর নাম আপডেট
+            document.querySelectorAll('.name-rakib').forEach(e => e.innerText = config.charRakib || "Rakib");
+            document.querySelectorAll('.name-riyan').forEach(e => e.innerText = config.charRiyan || "Riyan");
+            document.querySelectorAll('.name-f1').forEach(e => e.innerText = config.charFriend1 || "Siam");
+            document.querySelectorAll('.name-f2').forEach(e => e.innerText = config.charFriend2 || "Arif");
+            document.querySelectorAll('.name-f3').forEach(e => e.innerText = config.charFriend3 || "Friends");
+
+            const audioSource = document.getElementById('bg-music').querySelector('source');
+            if (audioSource.src !== config.music) {
+                audioSource.src = config.music;
+                document.getElementById('bg-music').load();
+            }
+            document.getElementById('main-profile-img').src = config.profilePic;
+        }
+
+        db.ref('birthdayConfig').on('value', (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                config = { ...config, ...data };
+            }
+            applyConfigData();
         });
 
-        // ব্যাকগ্রাউন্ড এনিমেশন কন্ট্রোলার (বেলুন + ফায়ারওয়ার্কস)
-        function startBackgroundEffects() {
+        document.addEventListener("DOMContentLoaded", () => {
+            applyConfigData();
+            startBackgroundEffects();
+        });
+
+        // কথা বলার সময় কার্টুনের নিচের নাম হাইলাইট করার ফাংশন
+        function setSpeakerHighlight(tagId, isActive) {
+            const el = document.getElementById(tagId);
+            if (!el) return;
+            if (isActive) el.classList.add('speaking-active');
+            else el.classList.remove('speaking-active');
+        }
+
+        // চারদিকে বোম / ফায়ারওয়ার্কস ফোটানোর ফাংশন
+        function burstBombsAround() {
             const container = document.getElementById('bg-effects');
-            const colors = ['#FF4D4D', '#4DFF4D', '#4D4DFF', '#FFFF4D', '#FF4DFF', '#00EFFF'];
-
-            // ১. বেলুন তৈরি (looping with CSS)
-            for(let i=0; i<25; i++) {
-                let b = document.createElement('div');
-                b.className = 'balloon';
-                b.style.left = Math.random() * 100 + '%';
-                b.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                b.style.animationDuration = (Math.random() * 5 + 10) + 's';
-                b.style.animationDelay = (Math.random() * 10) + 's';
-                container.appendChild(b);
-            }
-
-            // ২. বোমা ফাটা / ফায়ারওয়ার্কস (মাঝে মাঝে)
-            setInterval(() => {
-                createFirework(container, colors);
-            }, 2000); // প্রতি ২ সেকেন্ডে একবার ফাটবে
+            const colors = ['#FF4D4D', '#FFD700', '#00EFFF', '#FF00DE', '#4DFF4D', '#FF8C00'];
+            let count = 0;
+            const bombTimer = setInterval(() => {
+                createFirework(container, colors, 32);
+                createFirework(container, colors, 32);
+                count++;
+                if (count >= 8) clearInterval(bombTimer);
+            }, 350);
         }
 
-        function createFirework(container, colors) {
-            const x = Math.random() * 100; // Random X Position
-            const y = Math.random() * 60 + 10; // Random Y Position (Top area)
-            
-            // ২০ টি কণা তৈরি হবে
-            for(let i=0; i<20; i++) {
-                let p = document.createElement('div');
-                p.className = 'firework-particle';
-                p.style.left = x + '%';
-                p.style.top = y + '%';
-                p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                
-                // র্যান্ডম দিকে ছড়িয়ে দেওয়া
-                const angle = Math.random() * Math.PI * 2;
-                const distance = Math.random() * 100 + 50; // কণা কতদূর যাবে
-                const tx = Math.cos(angle) * distance + 'px';
-                const ty = Math.sin(angle) * distance + 'px';
-                
-                p.style.setProperty('--x', tx);
-                p.style.setProperty('--y', ty);
-                
-                container.appendChild(p);
+        let petalInterval = null;
 
-                // এনিমেশন শেষে ডিলেট
-                setTimeout(() => p.remove(), 1000);
-            }
+        // ১ম পেজের বাটনে ক্লিক করলে ২য় পেজ শুরু হবে
+        function startSurprise() {
+            enableMusic();
+            showPage('page-tree-story');
+            runTreeAndCartoonStory();
         }
 
-        // মিউজিক পারমিশন
-        function enableMusic() {
-            document.getElementById('bg-music').play().catch(e => {});
-        }
+        // ২য় পেজ: গাছ ও রাকিব-রিয়ানের দেখা হওয়া (স্লো এনিমেশন)
+        function runTreeAndCartoonStory() {
+            const riyan = document.getElementById('char-riyan');
+            const rakib = document.getElementById('char-rakib');
+            const bubbleRiyan = document.getElementById('bubble-riyan');
+            const bubbleRakib = document.getElementById('bubble-rakib');
 
-        function showPage(id) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-        }
+            setTimeout(() => { startFallingPetals(); }, 2000);
 
-        function startCountdown() {
-            showPage('page-countdown');
-            let c = 3;
-            const el = document.getElementById('count-num');
-            el.innerText = c;
-            const t = setInterval(() => {
-                c--;
-                if(c > 0) el.innerText = c;
-                else {
-                    clearInterval(t);
-                    showPage('page-2'); // খাম পেজে যাবে
-                }
-            }, 1000);
-        }
-
-        function openEnvelope() {
-            const env = document.getElementById('envelope');
-            if(env.classList.contains('open')) return;
-            
-            document.getElementById('bg-music').play().catch(e => {});
-            env.classList.add('open');
-
-            // খাম খোলার ৩ সেকেন্ড পর গ্যালারি
             setTimeout(() => {
-                runGallery();
-            }, 3000); 
-        }
+                riyan.classList.add('walking');
+                rakib.classList.add('walking');
+                riyan.style.left = "23%";
+                rakib.style.right = "23%";
+            }, 2500);
 
-        function runGallery() {
-            showPage('page-gallery');
-            const img = document.getElementById('gallery-img');
-            const cap = document.getElementById('gallery-caption');
-
-            // ১ম ছবি
-            img.style.opacity = 0;
             setTimeout(() => {
-                img.src = config.gallery1;
-                cap.innerText = config.cap1;
-                img.style.opacity = 1;
-            }, 200);
+                riyan.classList.remove('walking');
+                rakib.classList.remove('walking');
+                setSpeakerHighlight('tag-tree-riyan', true);
+                bubbleRiyan.innerText = config.dlgRiyanHi || "Hi Rakib 👋";
+                bubbleRiyan.classList.add('show');
+            }, 5800);
 
-            // ২য় ছবি (৪ সেকেন্ড পর)
             setTimeout(() => {
-                img.style.opacity = 0;
+                bubbleRiyan.classList.remove('show');
+                setSpeakerHighlight('tag-tree-riyan', false);
+
+                setSpeakerHighlight('tag-tree-rakib', true);
+                bubbleRakib.innerText = config.dlgRakibHlw || "Hlw Riyan 😊";
+                bubbleRakib.classList.add('show');
+            }, 8200);
+
+            setTimeout(() => {
+                bubbleRakib.classList.remove('show');
                 setTimeout(() => {
-                    img.src = config.gallery2;
-                    cap.innerText = config.cap2;
-                    img.style.opacity = 1;
-                }, 500);
-                
-                // মেইন মেসেজ পেজ (আরও ৪ সেকেন্ড পর)
+                    bubbleRakib.innerText = config.dlgRakibBday || "Happy birthday Riyan! 🎂🎉";
+                    bubbleRakib.classList.add('bday-highlight', 'show');
+                }, 300);
+            }, 10500);
+
+            setTimeout(() => {
+                bubbleRakib.classList.remove('show');
+                setSpeakerHighlight('tag-tree-rakib', false);
+                riyan.classList.add('walking');
+                rakib.classList.add('walking');
+                riyan.style.left = "115%";
+                rakib.style.right = "-35%";
+            }, 13800);
+
+            setTimeout(() => {
+                if (petalInterval) clearInterval(petalInterval);
+                showPage('page-cake-shop');
+                runCakeShopStory();
+            }, 17000);
+        }
+
+        function startFallingPetals() {
+            const layer = document.getElementById('petal-layer');
+            const flowers = ['🌸', '💗', '🌺', '💖', '🌷'];
+
+            petalInterval = setInterval(() => {
+                const f = document.createElement('div');
+                f.className = 'falling-flower';
+                f.innerText = flowers[Math.floor(Math.random() * flowers.length)];
+                f.style.left = (Math.random() * 84 + 8) + '%';
+                f.style.fontSize = (Math.random() * 8 + 12) + 'px';
+                const duration = Math.random() * 2.5 + 3.5;
+                f.style.animationDuration = duration + 's';
+                layer.appendChild(f);
+
+                setTimeout(() => f.remove(), duration * 1000);
+            }, 280);
+        }
+
+        // ৩য় পেজ: রাকিব ও বন্ধুরা দোকান থেকে কেক নিয়ে আসবে (স্লো এনিমেশন)
+        function runCakeShopStory() {
+            const rakib = document.getElementById('shop-rakib');
+            const f1 = document.getElementById('shop-friend1');
+            const f2 = document.getElementById('shop-friend2');
+            const f3 = document.getElementById('shop-friend3');
+            const bubble = document.getElementById('bubble-shop-rakib');
+            const shopCake = document.getElementById('shop-display-cake');
+            const carriedCake = document.getElementById('rakib-cake');
+            const statusText = document.getElementById('shop-status-text');
+
+            setTimeout(() => {
+                [rakib, f1, f2, f3].forEach(c => c.classList.add('walking'));
+                rakib.style.left = "44%";
+                f1.style.left = "28%";
+                f2.style.left = "14%";
+                f3.style.left = "2%";
+            }, 400);
+
+            setTimeout(() => {
+                [rakib, f1, f2, f3].forEach(c => c.classList.remove('walking'));
+                setSpeakerHighlight('tag-shop-rakib', true);
+                bubble.innerText = "ভাই, সবচেয়ে সুন্দর কেকটা দিন! 🎂";
+                bubble.classList.add('show');
+                statusText.innerText = "দোকান থেকে স্পেশাল কেক নেওয়া হচ্ছে...";
+            }, 3700);
+
+            setTimeout(() => {
+                shopCake.style.opacity = "0.2";
+                carriedCake.classList.add('visible');
+                bubble.innerText = "কেক নেওয়া শেষ, চলো সাজাই! 🎉";
+            }, 5600);
+
+            setTimeout(() => {
+                bubble.classList.remove('show');
+                setSpeakerHighlight('tag-shop-rakib', false);
+                [rakib, f1, f2, f3].forEach(c => c.classList.add('walking'));
+                rakib.style.left = "130%";
+                f1.style.left = "116%";
+                f2.style.left = "104%";
+                f3.style.left = "92%";
+            }, 7600);
+
+            setTimeout(() => {
+                showPage('page-cake-party');
+                runCakePartyStory();
+            }, 10800);
+        }
+
+        // ৪র্থ পেজ: সুন্দর সাজানো, কেক কাটা, চারদিকে বোম ফোটা ও রাকিবের মন খারাপ করে বসে থাকা
+        function runCakePartyStory() {
+            const banner = document.getElementById('party-banner');
+            const table = document.getElementById('party-table');
+            const statusText = document.getElementById('party-status-text');
+            const riyan = document.getElementById('party-riyan');
+            const rakib = document.getElementById('party-rakib');
+            const f1 = document.getElementById('party-friend1');
+            const f2 = document.getElementById('party-friend2');
+            const blindfold = document.getElementById('riyan-blindfold');
+            const knife = document.getElementById('party-knife');
+            const bubbleRakib = document.getElementById('bubble-party-rakib');
+            const bubbleRiyan = document.getElementById('bubble-party-riyan');
+            const bubbleF1 = document.getElementById('bubble-party-f1');
+
+            setTimeout(() => {
+                banner.classList.add('show');
+                table.classList.add('show');
+            }, 500);
+
+            setTimeout(() => {
+                statusText.innerText = "চোখ বন্ধ করে সারপ্রাইজ দিতে নিয়ে আসা হচ্ছে... 🙈";
+                [riyan, rakib, f1, f2].forEach(c => c.classList.add('walking'));
+                riyan.style.left = "33%";
+                rakib.style.left = "17%";
+                f1.style.right = "22%";
+                f2.style.right = "6%";
+            }, 1800);
+
+            setTimeout(() => {
+                [riyan, rakib, f1, f2].forEach(c => c.classList.remove('walking'));
+                setSpeakerHighlight('tag-party-rakib', true);
+                bubbleRakib.innerText = "এবার চোখ খোলো! 🎉";
+                bubbleRakib.classList.add('show');
+            }, 5100);
+
+            setTimeout(() => {
+                blindfold.style.opacity = "0";
+                bubbleRakib.classList.remove('show');
+                setSpeakerHighlight('tag-party-rakib', false);
+
+                setSpeakerHighlight('tag-party-riyan', true);
+                bubbleRiyan.innerText = "ওয়াও! দারুণ সারপ্রাইজ! 😍";
+                bubbleRiyan.classList.add('show');
+                statusText.innerText = "সবাই মিলে কেক কাটা হচ্ছে... 🎂🔪";
+            }, 6800);
+
+            // কেক কাটা + চারদিকে বোম ফোটা + সবাই অনেক মজা করবে
+            setTimeout(() => {
+                bubbleRiyan.classList.remove('show');
+                setSpeakerHighlight('tag-party-riyan', false);
+
+                knife.classList.add('cutting');
+                burstBombsAround(); // চারদিকে বোম/ফায়ারওয়ার্কস ফুটবে
+
+                setSpeakerHighlight('tag-party-f1', true);
+                bubbleF1.innerText = "Happy Birthday! 🥳💥";
+                bubbleF1.classList.add('bday-highlight', 'show');
+                [riyan, f1, f2].forEach(c => c.classList.add('celebrating'));
+            }, 8600);
+
+            // কেক খাওয়ানো
+            setTimeout(() => {
+                knife.classList.remove('cutting');
+                statusText.innerText = "সবাই অনেক মজা করছে ও কেক খাচ্ছে... 🍰🥳";
+                const s1 = document.getElementById('cake-slice-1');
+                const s2 = document.getElementById('cake-slice-2');
+                s1.style.opacity = "1";
+                s2.style.opacity = "1";
+                s1.style.transform = "translate(-45px, -25px) scale(1.2)";
+                s2.style.transform = "translate(55px, -25px) scale(1.2)";
                 setTimeout(() => {
-                    showPage('page-3');
-                    startTyping();
-                }, 4000);
+                    s1.style.opacity = "0";
+                    s2.style.opacity = "0";
+                }, 1500);
+            }, 10800);
 
-            }, 4000); 
+            // রাকিব Sad (মন খারাপ) করে একপাশে গিয়ে বসে থাকবে, বাকি সবাই আনন্দ করবে
+            setTimeout(() => {
+                bubbleF1.classList.remove('show');
+                setSpeakerHighlight('tag-party-f1', false);
+
+                document.getElementById('rakib-happy-mouth').style.display = "none";
+                document.getElementById('rakib-sad-mouth').style.display = "block";
+
+                rakib.classList.add('walking');
+                rakib.style.left = "2%";
+                setTimeout(() => {
+                    rakib.classList.remove('walking');
+                    rakib.classList.add('sad-sitting');
+                    setSpeakerHighlight('tag-party-rakib', true);
+                    bubbleRakib.innerText = "সবাই আনন্দ করছে... 😔";
+                    bubbleRakib.classList.add('show');
+                }, 2000);
+            }, 13000);
+
+            // ৫ম পেজে (সবাই মিলে রাকিবকে গিফট দেবে) যাবে
+            setTimeout(() => {
+                bubbleRakib.classList.remove('show');
+                setSpeakerHighlight('tag-party-rakib', false);
+                showPage('page-gifts');
+                runGiftStory();
+            }, 17200);
         }
 
-        // টাইপিং ইফেক্ট
-        function startTyping() {
-            const titleEl = document.getElementById('typing-title');
-            const bodyEl = document.getElementById('typing-body');
-            let i = 0; 
-            
-            function typeTitle() {
-                if(i < config.titleMsg.length) {
-                    titleEl.innerHTML += config.titleMsg.charAt(i);
-                    i++; setTimeout(typeTitle, 50);
-                } else {
-                    i = 0; typeBody(); 
-                }
-            }
-            function typeBody() {
-                if(i < config.bodyMsg.length) {
-                    const char = config.bodyMsg.charAt(i);
-                    bodyEl.innerHTML += char === '\n' ? '<br>' : char;
-                    i++; setTimeout(typeBody, 30);
-                } else {
-                    setTimeout(() => showPage('page-4'), 8000);
-                }
-            }
-            typeTitle();
-        }
-
-        // সুন্দর ফরম্যাটেড টেলিগ্রাম মেসেজ
-        function sendToTelegram() {
-            const msg = document.getElementById("msgInput").value;
-            if(!msg.trim()) { alert("খালি মেসেজ পাঠাবেন না!"); return; }
-
-            // HTML ফরম্যাট
-            const formattedMsg = `
-<b>🎊 NEW BIRTHDAY WISH! 🎊</b>
-➖➖➖➖➖➖➖➖➖➖
-👤 <b>From:</b> <code>${config.name}</code> (Site Visitor)
-💌 <b>Message:</b>
-<blockquote>${msg}</blockquote>
-➖➖➖➖➖➖➖➖➖➖
-⌚ <b>Time:</b> ${new Date().toLocaleTimeString()}
-🚀 <b>Sent Via:</b> Birthday Site
-            `;
-
-            fetch(`https://api.telegram.org/bot${config.botToken}/sendMessage?chat_id=${config.chatId}&text=${encodeURIComponent(formattedMsg)}&parse_mode=HTML`)
-            .then(res => {
-                if(res.ok) {
-                    alert("মেসেজ পাঠানো হয়েছে! ধন্যবাদ ❤️");
-                    document.getElementById("msgInput").value = "";
-                }
-            });
-        }
-    </script>
-</body>
-</html>
+        // ৫ম পেজ: সকলে মিলে মন খারাপ করে বসে থাকা রাকিবকে সুন্দর সুন্দর গিফট দেবে (Slow Animation)
+        function runGiftStory() {
+            const rakib = document.getElementByI
